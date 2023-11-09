@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+    * {
+        @apply m-0 p-0;
+    }
+
+    body {
+        @apply text-base text-font-color overflow-x-hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply m-0 p-0 text-font-color;
+    }
+
+    p {
+        @apply m-0 p-0 pb-0 text-base text-font-color opacity-80 no-underline;
+    }
+}
+
+@layer components {
+    .btn-primary {
+        @apply pt-2 pb-2 pl-8 pr-8 m-1 text-xl font-semibold transition duration-300 ease-in no-underline bg-primary-color text-font-light hover:border-transparent hover:bg-secondary-color hover:text-font-light;
+    }
+
+    .btn-secondary {
+        @apply pt-2 pb-2 pl-8 pr-8 m-1 text-xl font-semibold transition duration-300 ease-in no-underline bg-transparent text-font-light border-2 border-primary-color hover:border-transparent hover:bg-secondary-color hover:text-bg-color;
+    }
+
+    .main-title {
+        @apply text-2xl no-underline text-primary-color font-semibold mb-4;
+    }
+
+    .sub-title {
+        @apply text-5xl no-underline text-font-color;
+    }
+
+    .nav-item {
+        @apply no-underline text-base text-font-light mr-2 ml-2;
+    }
+
+    .nav-link {
+        @apply no-underline text-xl text-font-light mr-2 ml-2;
+    }
+
+    .categories-item {
+        @apply text-base font-normal mb-2 text-font-color hover:text-primary-color;
+    }
+}
