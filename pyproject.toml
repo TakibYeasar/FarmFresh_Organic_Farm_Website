@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "fullstack-django-drf organic-farm-website"
+version = "0.1.0"
+description = ""
+authors = ["Takib Yeasar <mdtakibyeasar@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "5.0"
+djangorestframework = "^3.14.0"
+djangorestframework-simplejwt = "^5.3.1"
+django-cors-headers = "^4.3.1"
+psycopg2 = "^2.9.9"
+pillow = "^10.1.0"
+django-tailwind = "^3.6.0"
+django-browser-reload = "^1.12.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
