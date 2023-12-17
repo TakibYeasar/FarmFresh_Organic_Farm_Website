@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="">
+    <div class="relative">
+        <Image src="{% static 'assets/images/carousel-2.jpg' %}" class='h-[40vh]' alt='' />
+        <div class="absolute t-[10vh]">
+            <h3 class="text-font-light">Registration</h3>
+            <div class="flex">
+                <a class='text-base text-font-light font-medium mr-2 no-underline' href="">Home</a>
+                <FaAngleDoubleRight class='text-base text-font-light font-medium mr-2 no-underline' />
+                <p class="text-base text-font-light font-medium mr-2 no-underline">Registration</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="grid bg-card-bg rounded-md p-4">
+            <div class="lg:col-span-12 md:col-span-6 sm:col-span-6">
+                <h4 class="text-4xl font-medium">Create a new account</h4>
+                <p class="font-base text-primary-color">Create your new account.</p>
+                <div class="flex">
+                    <a href="#" class="flex m-4 items-center text-xl font-normal p-4 rounded-md transition duration-300 ease-in no-underline bg-amber-400 text-font-light"><FaGoogle class='mr-2' /> Sign In with Google</a>
+                    <a href="#" class="flex m-4 items-center text-xl font-normal p-4 rounded-md transition duration-300 ease-in no-underline bg-blue-600 text-font-light"><FaFacebook class='mr-2' /> Sign In with Facebook</a>
+                    <a href="#" class="flex m-4 items-center text-xl font-normal p-4 rounded-md transition duration-300 ease-in no-underline bg-blue-400 text-font-light"><FaTwitter class='mr-2' /> Sign In with Twitter</a>
+                </div>
+                <div class="text-xl font-normal my-4">Or,</div>
+                <form class="" role="form">
+                    <div class="mt-2 mb-2">
+                        <label class="font-base mt-2 mb-2">Email Address <span>*</span></label>
+                        <input type="email" class="" placeholder="email" />
+                    </div>
+                    <div class="mt-2 mb-2">
+                        <label class="font-base mt-2 mb-2">Username <span>*</span></label>
+                        <input type="email" class="" placeholder="username" />
+                    </div>
+                    <div class="mt-2 mb-2">
+                        <label class="font-base mt-2 mb-2">First Name <span>*</span></label>
+                        <input type="text" class="" placeholder="first name" />
+                    </div>
+                    <div class="mt-2 mb-2">
+                        <label class="font-base mt-2 mb-2">Last Name <span>*</span></label>
+                        <input type="text" class="" placeholder="last name" />
+                    </div>
+                    <div class="mt-2 mb-2">
+                        <label class="font-base mt-2 mb-2">Password <span>*</span></label>
+                        <input type="password" class="" placeholder="password" />
+                    </div>
+                    <div class="mt-2 mb-2">
+                        <label class="font-base mt-2 mb-2">Confirm Password <span>*</span></label>
+                        <input type="password" class="" placeholder="confirm password" />
+                    </div>
+                    <button type="submit" class="" >Sign Up</button>
+                    <button type="submit" class="">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

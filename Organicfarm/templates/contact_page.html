@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+  <div class="grid justify-start">
+    <div class="col-span-8 text-center">
+      <h1 class=" text-font-light">Contact Us</h1>
+      <a href="" class="me-3">Home</a>
+      <a href="" class="">Contact Us</a>
+    </div>
+  </div>
+  <div class="">
+    <div class="mx-auto text-center mb-5" >
+      <h6 class="uppercase">Contact Us</h6>
+      <h1 class="">Please Feel Free To Contact Us</h1>
+    </div>
+    <div class="grid ">
+      <div class="col-span-7">
+        <div class="h-100 p-5">
+          <form>
+            <div class="grid">
+              <div class="col-span-6">
+                <input type="text" class="border-0 px-4" placeholder="Your Name" />
+              </div>
+              <div class="col-span-6">
+                <input type="email" class="border-0 px-4" placeholder="Your Email" />
+              </div>
+              <div class="col-span-12">
+                <input type="text" class="border-0 px-4" placeholder="Subject" />
+              </div>
+              <div class="col-span-12">
+                <textarea class="border-0 px-4 py-3" placeholder="Message"></textarea>
+              </div>
+              <div class="col-span-12">
+                <button class="btn-style" type="submit">Send Message</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-span-5">
+        <div class="h-100 p-5">
+          <h2 class="text-font-light mb-4">Get In Touch</h2>
+          <div class="flex mb-4">
+            <div class="flex items-center justify-center" />
+            <i class="bi bi-geo-alt fs-4 text-font-light"></i>
+          </div>
+          <div class="ps-3">
+            <h5 class="text-font-light">Our Office</h5>
+            <span class="text-font-light">123 Street, New York, USA</span>
+          </div>
+        </div>
+        <div class="flex mb-4">
+          <div class="flex items-center justify-center" />
+          <FaEnvelopeOpen />
+        </div>
+        <div class="ps-3">
+          <h5 class="text-font-light">Email Us</h5>
+          <span class="text-font-light">info@example.com</span>
+        </div>
+      </div>
+      <div class="flex">
+        <div class="flex items-center justify-center" />
+        <FaPhone />
+      </div>
+      <div class="ps-3">
+        <h5 class="text-font-light">Call Us</h5>
+        <span class="text-font-light">+012 345 6789</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

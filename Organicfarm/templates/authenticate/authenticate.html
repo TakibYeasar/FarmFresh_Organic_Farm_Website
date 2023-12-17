@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="">
+    <div class="relative">
+        <Image src="{% static 'assets/images/carousel-2.jpg' %}" class='h-[40vh]' alt='' />
+
+        <div class="container">
+            <div class="absolute t-[10vh]">
+                <h3 class="text-font-light">Authenticate</h3>
+                <div class="flex">
+                    <a class='text-base text-font-light font-medium mr-2 no-underline' href="">Home</a>
+                    <FaAngleDoubleRight class='text-base text-font-light font-medium mr-2 no-underline' />
+                    <p class="text-base text-font-light font-medium mr-2 no-underline">Authenticate</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="flex">
+            <div class="bg-card-bg rounded-md p-4">
+                <div class="grid">
+                    <div class="lg:col-span-12 md:col-span-6 sm:col-span-6">
+                        <h4 class="text-4xl font-medium">Sign in</h4>
+                        <p class="font-base text-primary-color">Hello, Welcome to your account.</p>
+                        <div class="flex">
+                            <a href="#" class="flex m-4 items-center text-xl font-normal p-4 rounded-md transition duration-300 ease-in no-underline bg-amber-400 text-font-light"><FaGoogle class='mr-2' /> Sign In with Google</a>
+                            <a href="#" class="flex m-4 items-center text-xl font-normal p-4 rounded-md transition duration-300 ease-in no-underline bg-blue-600 text-font-light"><FaFacebook class='mr-2' /> Sign In with Facebook</a>
+                            <a href="#" class="flex m-4 items-center text-xl font-normal p-4 rounded-md transition duration-300 ease-in no-underline bg-blue-400 text-font-light"><FaTwitter class='mr-2' /> Sign In with Twitter</a>
+                        </div>
+                        <div class="text-xl font-normal my-4">Or,</div>
+                        <div class="mt-8 mb-8">
+                            <a href="#" class="no-underline bg-tertiary-color rounded-md text-base ml-2 mr-2 font-medium p-4 text-font-light"><FaFacebook class='icon' /> Sign In with Facebook</a>
+                            <a href="#" class="no-underline bg-tertiary-color rounded-md text-base ml-2 mr-2 font-medium p-4 text-font-light"><FaTwitter class='icon' /> Sign In with Twitter</a>
+                        </div>
+                        <form class="" role="form">
+                            <div class="mt-2 mb-2">
+                                <label class="font-base mt-2 mb-2" htmlFor="exampleInputEmail1">Username <span>*</span></label>
+                                <input type="text" class="form-control unicase-form-control text-input" id="exampleInputEmail1" />
+                            </div>
+                            <div class="mt-2 mb-2">
+                                <label class="font-base mt-2 mb-2" htmlFor="exampleInputEmail1">Email Address <span>*</span></label>
+                                <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" />
+                            </div>
+                            <div class="mt-2 mb-2">
+                                <label class="font-base mt-2 mb-2" htmlFor="exampleInputPassword1">Password <span>*</span></label>
+                                <input type="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1" />
+                            </div>
+                            <div class="mt-6 mb-6 justify-evenly outer-xs">
+                                <label><input type="radio" />Remember me! </label>
+                                <a href="#" class="no-underline font-base text-font-color">Forgot your Password?</a>
+                            </div>
+                            <button type="submit" class="">Login</button>
+                            <button type="submit" class="" >Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

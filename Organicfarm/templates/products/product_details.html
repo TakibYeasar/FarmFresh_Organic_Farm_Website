@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <nav aria-label="">
+        <ol class="mt-50">
+            <li class=""><a href="#">Home</a></li>
+            <li class=""><a href="#">Furniture</a></li>
+            <li class=""><a href="#">Chairs</a></li>
+            <li class="">white modern chair</li>
+        </ol>
+    </nav>
+
+    <div class="grid">
+        <div class="col-span-6">
+            <div class="">
+                <div id="product_details_slider" class="">
+                    <ol class="">
+                        <li class="active" data-target="#product_details_slider" data-slide-to="0" style="backgrounimage: url(img/product-img/pro-big-1.jpg);">
+                        </li>
+                        <li data-target="#product_details_slider" data-slide-to="1" style="backgrounimage: url(img/product-img/pro-big-2.jpg);">
+                        </li>
+                        <li data-target="#product_details_slider" data-slide-to="2" style="backgrounimage: url(img/product-img/pro-big-3.jpg);">
+                        </li>
+                        <li data-target="#product_details_slider" data-slide-to="3" style="backgrounimage: url(img/product-img/pro-big-4.jpg);">
+                        </li>
+                    </ol>
+                    <div class="">
+                        <div class="">
+                            <a class="" href="{% static 'assets/images/product-img/pro-big-1.jpg' %}">
+                                <img class="block w-100" src="{% static 'assets/images/product-img/pro-big-1.jpg' %}" alt="First slide" />
+                            </a>
+                        </div>
+                        <div class="">
+                            <a class="" href="{% static 'assets/images/product-img/pro-big-2.jpg' %}">
+                                <img class="block w-100" src="{% static 'assets/images/product-img/pro-big-2.jpg' %}" alt="Second slide" />
+                            </a>
+                        </div>
+                        <div class="">
+                            <a class="" href="{% static 'assets/images/product-img/pro-big-3.jpg' %}">
+                                <img class="block w-100" src="{% static 'assets/images/product-img/pro-big-3.jpg' %}" alt="Third slide" />
+                            </a>
+                        </div>
+                        <div class="">
+                            <a class="" href="{% static 'assets/images/product-img/pro-big-4.jpg' %}">
+                                <img class="block w-100" src="{% static 'assets/images/product-img/pro-big-4.jpg' %}" alt="Fourth slide" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-span-5">
+            <div class="">
+                <div class="">
+                    <div class=""></div>
+                    <p class="">$180</p>
+                    <a href=""><h6>White Modern Chair</h6></a>
+                    <div class="mb-15 flex items-center justify-between">
+                        <div class="">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </div>
+                        <div class=""><a href="#">Write A Review</a></div>
+                    </div>
+                    <p class=""><i class="fa fa-circle"></i> In Stock</p>
+                </div>
+
+                <div class="my-5">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quae eveniet culpa officia quidem mollitia impedit iste asperiores nisi reprehenderit consequatur, autem, nostrum pariatur enim?</p>
+                </div>
+
+                <form class="" method="post">
+                    <div class="flex mb-50">
+                        <p>Qty</p>
+                        <div class="">
+                            <span class="" ><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+                            <input type="number" class="" name="quantity" value="1" />
+                            <span class=""><i class="fa fa-caret-up" aria-hidden="true"></i></span>
+                        </div>
+                    </div>
+                    {/* <button type="submit" name="addtocart" value="5" class="btn-style" >Add to cart</button> */}
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

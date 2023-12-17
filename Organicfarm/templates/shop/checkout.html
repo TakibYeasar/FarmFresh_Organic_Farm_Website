@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="grid grid-flow-col">
+        <div class="col-span-8">
+            <div class="mt-50">
+                <div class=""><h2>Checkout</h2></div>
+
+                <form action="#" method="post">
+                    <div class="grid">
+                        <div class="col-span-6 mb-3">
+                            <input type="text" class="" id="first_name" value="" placeholder="First Name" required />
+                        </div>
+                        <div class="col-span-6 mb-3">
+                            <input type="text" class="" id="last_name" value="" placeholder="Last Name" required />
+                        </div>
+                        <div class="col-span-12 mb-3">
+                            <input type="text" class="" id="company" placeholder="Company Name" value="" />
+                        </div>
+                        <div class="col-span-12 mb-3">
+                            <input type="email" class="" id="email" placeholder="Email" value="" />
+                        </div>
+                        <div class="col-span-12 mb-3">
+                            <select class="w-100" id="country">
+                                <option value="usa">United States</option>
+                                <option value="uk">United Kingdom</option>
+                                <option value="ger">Germany</option>
+                                <option value="fra">France</option>
+                                <option value="ind">India</option>
+                                <option value="aus">Australia</option>
+                                <option value="bra">Brazil</option>
+                                <option value="cana">Canada</option>
+                            </select>
+                        </div>
+                        <div class="col-span-12 mb-3">
+                            <input type="text" class=" mb-3" id="street_address" placeholder="Address" value="" />
+                        </div>
+                        <div class="col-span-12 mb-3">
+                            <input type="text" class="" id="city" placeholder="Town" value="" />
+                        </div>
+                        <div class="col-span-6 mb-3">
+                            <input type="text" class="" id="zipCode" placeholder="Zip Code" value="" />
+                        </div>
+                        <div class="col-span-6 mb-3">
+                            <input type="number" class="" id="phone_number" min="0" placeholder="Phone No" value="" />
+                        </div>
+                        <div class="col-span-12 mb-3">
+                            <textarea name="comment" class=" w-100" id="comment" placeholder="Leave a comment about your order"></textarea>
+                        </div>
+
+                        <div class="col-span-12">
+                            <div class="block mb-2">
+                                <input type="checkbox" class="" id="customCheck2" />
+                                <label class="" htmlFor="customCheck2">Create an accout</label>
+                            </div>
+                            <div class="block">
+                                <input type="checkbox" class="" id="customCheck3" />
+                                <label class="" htmlFor="customCheck3">Ship to a different address</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-span-4">
+            <div class="">
+                <h5>Cart Total</h5>
+                <ul class="">
+                    <li><span>subtotal:</span> <span>$140.00</span></li>
+                    <li><span>delivery:</span> <span>Free</span></li>
+                    <li><span>total:</span> <span>$140.00</span></li>
+                </ul>
+
+                <div class="">
+                    <div class="">
+                        <input type="checkbox" class="" id="cod" checked />
+                        <label class="" htmlFor="cod">Cash on Delivery</label>
+                    </div>
+                    <div class="">
+                        <input type="checkbox" class="" id="paypal" />
+                        <label class="" htmlFor="paypal">Paypal <Image class="ml-15" src="{% static 'assets/images/core-img/paypal.png' %}" alt="" /></label>
+                    </div>
+                </div>
+
+                <div class="mt-100">
+                    <a href="#" class="btn-style">Checkout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

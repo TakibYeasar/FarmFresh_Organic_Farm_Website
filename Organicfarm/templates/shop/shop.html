@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class='container'>
+    <div class="">
+        <div class="mb-50">
+            <h6 class="mb-30">Catagories</h6>
+            <div class="">
+                <ul>
+                    <li class=""><a href="#">Chairs</a></li>
+                    <li><a href="#">Beds</a></li>
+                    <li><a href="#">Accesories</a></li>
+                    <li><a href="#">Furniture</a></li>
+                    <li><a href="#">Home Deco</a></li>
+                    <li><a href="#">Dressings</a></li>
+                    <li><a href="#">Tables</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mb-50">
+            <h6 class="mb-30">Brands</h6>
+
+            <div class="">
+                <div class="">
+                    <input class="" type="checkbox" value="" id="amado" />
+                    <label class="" htmlFor="amado">Amado</label>
+                </div>
+                <div class="">
+                    <input class="" type="checkbox" value="" id="ikea" />
+                    <label class="" htmlFor="ikea">Ikea</label>
+                </div>
+                <div class="">
+                    <input class="" type="checkbox" value="" id="furniture" />
+                    <label class="" htmlFor="furniture">Furniture Inc</label>
+                </div>
+                <div class="">
+                    <input class="" type="checkbox" value="" id="factory" />
+                    <label class="" htmlFor="factory">The factory</label>
+                </div>
+                <div class="">
+                    <input class="" type="checkbox" value="" id="artdeco" />
+                    <label class="" htmlFor="artdeco">Artdeco</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-50">
+            <h6 class="mb-30">Color</h6>
+
+            <div class="">
+                <ul class="d-flex">
+                    <li><a href="#" class=""></a></li>
+                    <li><a href="#" class=""></a></li>
+                    <li><a href="#" class=""></a></li>
+                    <li><a href="#" class=""></a></li>
+                    <li><a href="#" class=""></a></li>
+                    <li><a href="#" class=""></a></li>
+                    <li><a href="#" class=""></a></li>
+                    <li><a href="#" class=""></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mb-50">
+            <h6 class="mb-30">Price</h6>
+
+            <div class="">
+                <div>
+                    <div class=""></div>
+                    <span class=""></span>
+                    <span class=""></span>
+                </div>
+                <div class="">$10 - $1000</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="">
+        <div class="grid">
+            <div class="col-span-12">
+                <div class="flex items-end justifyt-between">
+                    <div class="">
+                        <p>Showing 1-8 0f 25</p>
+                        <div class="flex">
+                            <a href="#"><i class="fa fa-th-large" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-bars" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="flex items-center mr-15">
+                            <p>Sort by</p>
+                            <form action="#" method="get">
+                                <select name="select" id="sortBydate">
+                                    <option value="value">Date</option>
+                                    <option value="value">Newest</option>
+                                    <option value="value">Popular</option>
+                                </select>
+                            </form>
+                        </div>
+                        <div class="flex items-center">
+                            <p>View</p>
+                            <form action="#" method="get">
+                                <select name="select" id="viewProduct">
+                                    <option value="value">12</option>
+                                    <option value="value">24</option>
+                                    <option value="value">48</option>
+                                    <option value="value">96</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+                <div class="col-span-12">
+                    <div class="">
+                        <div class="">
+                            <Image src="{% static 'assets/images/product-img/product1.jpg' %}" alt="" />
+                            <Image class="" src="{% static 'assets/images/product-img/product2.jpg' %}" alt="" />
+                        </div>
+
+                        <div class="flex align-items-center justify-between">
+                            <div class="">
+                                <div class=""></div>
+                                <p class="">$180</p>
+                                <a href=""><h6>Modern Chair</h6></a>
+                            </div>
+                            <div class="text-right">
+                                <div class="">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                                <div class="cart">
+                                    <a href="" title="Add to Cart"><Image src={cart} alt="" /></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="grid">
+                <div class="col-span-12">
+                        <ul class="justify-end mt-50">
+                            <li class=""><a class="" href="#">01.</a></li>
+                            <li class=""><a class="" href="#">02.</a></li>
+                            <li class=""><a class="" href="#">03.</a></li>
+                            <li class=""><a class="" href="#">04.</a></li>
+                        </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

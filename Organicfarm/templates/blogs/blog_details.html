@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class='container'>
+  <div class="grid justify-start">
+    <div class="col-span-8 text-center">
+      <h1 class=" text-font-light">Blog Detail</h1>
+      <a href="" class="me-3">Home</a>
+      <a href="" class="">Blog Detail</a>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="col-span-8">
+      <div class="mb-5">
+        <div class="grid mb-5">
+          <div class="col-span-6">
+            <Image class="w-100" src="{% static 'assets/img/blog-1.jpg' %}" alt="" />
+          </div>
+          <div class="col-span-6">
+            <Image class="w-100" src={blog02} alt="" />
+          </div>
+        </div>
+        <h1 class="mb-4">Diam dolor est labore duo ipsum clita sed et lorem tempor duo</h1>
+        <p>Sadipscing labore amet rebum est et justo gubergren. Et eirmod ipsum sit diam ut
+          magna lorem. Nonumy vero labore lorem sanctus rebum et lorem magna kasd, stet
+          amet magna accusam consetetur eirmod. Kasd accusam sit ipsum sadipscing et at at
+          sanctus et. Ipsum sit gubergren dolores et, consetetur justo invidunt at et
+          aliquyam ut et vero clita. Diam sea sea no sed dolores diam nonumy, gubergren
+          sit stet no diam kasd vero.</p>
+        <p>Voluptua est takimata stet invidunt sed rebum nonumy stet, clita aliquyam dolores
+          vero stet consetetur elitr takimata rebum sanctus. Sit sed accusam stet sit
+          nonumy kasd diam dolores, sanctus lorem kasd duo dolor dolor vero sit et. Labore
+          ipsum duo sanctus amet eos et. Consetetur no sed et aliquyam ipsum justo et,
+          clita lorem sit vero amet amet est dolor elitr, stet et no diam sit. Dolor erat
+          justo dolore sit invidunt.</p>
+        <p>Diam dolor est labore duo invidunt ipsum clita et, sed et lorem voluptua tempor
+          invidunt at est sanctus sanctus. Clita dolores sit kasd diam takimata justo diam
+          lorem sed. Magna amet sed rebum eos. Clita no magna no dolor erat diam tempor
+          rebum consetetur, sanctus labore sed nonumy diam lorem amet eirmod. No at tempor
+          sea diam kasd, takimata ea nonumy elitr sadipscing gubergren erat. Gubergren at
+          lorem invidunt sadipscing rebum sit amet ut ut, voluptua diam dolores at
+          sadipscing stet. Clita dolor amet dolor ipsum vero ea ea eos.</p>
+      </div>
+
+      <div class="mb-5">
+        <h2 class="mb-4">3 Comments</h2>
+        <div class="flex mb-4">
+          <Image src="{% static 'assets/img/user.jpg' %}" class="" alt='' />
+          <div class="ps-3">
+            <h6><a href="">John Doe</a> <small><i>01 Jan 2045</i></small></h6>
+            <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor labore
+              accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed eirmod</p>
+            <button class="btn-style">Reply</button>
+          </div>
+        </div>
+        <div class="flex mb-4">
+          <Image src="{% static 'assets/img/user.jpg' %}" class="" alt='' />
+          <div class="ps-3">
+            <h6><a href="">John Doe</a> <small><i>01 Jan 2045</i></small></h6>
+            <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor labore
+              accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed eirmod</p>
+            <button class="btn-style">Reply</button>
+          </div>
+        </div>
+        <div class="flex ms-5 mb-4">
+          <Image src="{% static 'assets/img/user.jpg' %}" class="" alt='' />
+          <div class="ps-3">
+            <h6><a href="">John Doe</a> <small><i>01 Jan 2045</i></small></h6>
+            <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor labore
+              accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed eirmod</p>
+            <button class="btn-style">Reply</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-5">
+        <h2 class="text-font-light mb-4">Leave a comment</h2>
+        <form>
+          <div class="grid">
+            <div class="col-span-12">
+              <input type="text" class="bg-bg-color border-0" placeholder="Your Name" />
+            </div>
+            <div class="col-span-12">
+              <input type="email" class="bg-bg-color border-0" placeholder="Your Email" />
+            </div>
+            <div class="col-span-12">
+              <input type="text" class="bg-bg-color border-0" placeholder="Website" />
+            </div>
+            <div class="col-span-12">
+              <textarea class="bg-bg-color border-0" placeholder="Comment"></textarea>
+            </div>
+            <div class="col-span-12">
+              <button class="w-100 py-3" type="submit">Leave Your Comment</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-span-4">
+      <div class="mb-5">
+        <div class="">
+          <input type="text" class="p-3" placeholder="Keyword" />
+          <button class="px-4"><FaSearch /></button>
+        </div>
+      </div>
+
+      {% include 'core/categories.html' %}
+
+      {% include 'core/recentpost.html' %}
+
+      <div class="mb-5">
+        <Image src="{% static 'assets/img/blog-1.jpg' %}" alt="" class="rounded" />
+      </div>
+
+      <Blogtags />
+
+      <div>
+        <h2 class="mb-4">Plain Text</h2>
+        <div class="text-center text-font-light" >
+          <p>Vero sea et accusam justo dolor accusam lorem consetetur, dolores sit amet sit dolor clita kasd justo, diam accusam no sea ut tempor magna takimata, amet sit et diam dolor ipsum amet diam</p>
+          <a href="" class="btn-style">Read More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

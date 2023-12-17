@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+  <div class="grid justify-start">
+    <div class="col-span-8 text-center">
+      <h1 class=" text-font-light">Blog Grid</h1>
+      <a href="" class="me-3">Home</a>
+      <a href="" class="">Blog Grid</a>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="col-span-8">
+      <div class="grid">
+          <div class="col-span-6">
+            <div class="relative overflow-hidden">
+              <Image class="" src="{% static 'assets/images/blog-1.jpg' %}" alt="" />
+              <a class="" href="">
+                <h4 class="text-font-light">Lorem elitr magna stet eirmod labore amet</h4>
+                <span class="text-font-light">Jan 01, 2050</span>
+              </a>
+            </div>
+          </div>
+          <div class="col-span-6">
+            <div class="relative overflow-hidden">
+              <Image class="" src="{% static 'assets/images/blog-2.jpg' %}" alt="" />
+              <a class="" href="">
+                <h4 class="text-font-light">Lorem elitr magna stet eirmod labore amet</h4>
+                <span class="text-font-light">Jan 01, 2050</span>
+              </a>
+            </div>
+          </div>
+          <div class="col-span-6">
+            <div class="relative overflow-hidden">
+              <Image class="" src="{% static 'assets/images/blog-3.jpg' %}" alt="" />
+              <a class="" href="">
+                <h4 class="text-font-light">Lorem elitr magna stet eirmod labore amet</h4>
+                <span class="text-font-light">Jan 01, 2050</span>
+              </a>
+            </div>
+          </div>
+        <div class="col-span-12">
+          <nav aria-label="">
+            <ul class="justify-center m-0">
+              <li class="">
+                <a class="" href="#"><span aria-hidden="true"><FaArrowLeft /></span></a>
+              </li>
+              <li class=""><a class="" href="#">1</a></li>
+              <li class=""><a class="" href="#">2</a></li>
+              <li class=""><a class="" href="#">3</a></li>
+              <li class="">
+                <a class="" href="#"><span aria-hidden="true"><FaArrowRight /></span></a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-span-4">
+      <div class="mb-5">
+        <div class="">
+          <input type="text" class="p-3" placeholder="Keyword" />
+          <button class="px-4"><FaSearch /></button>
+        </div>
+      </div>
+
+      {% include 'core/categories.html' %}
+
+      {% include 'core/recentpost.html' %}
+
+      <div class="mb-5">
+        <Image src={blog01} alt="" class="rounded" />
+      </div>
+
+      {% include 'core/blogtags.html' %}
+
+      <div>
+        <h2 class="mb-4">Plain Text</h2>
+        <div class="text-center text-font-light" >
+          <p>Vero sea et accusam justo dolor accusam lorem consetetur, dolores sit amet sit dolor clita kasd justo, diam accusam no sea ut tempor magna takimata, amet sit et diam dolor ipsum amet diam</p>
+          <a href="" class="btn-style">Read More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

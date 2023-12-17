@@ -1,0 +1,57 @@
+{% load static %}
+
+<div class=''>
+  <div class="">
+    <div class="relative">
+      <Image class="w-screen h-screen" src="{% static 'assets/images/carousel-1.jpg' %}" alt="Image" />
+      <div class="absolute top-0">
+        <h3 class="text-font-light text-3xl font-semibold m-4">Organic Vegetables</h3>
+        <h1 class="text-font-light text-5xl font-semibold m-4">Organic Vegetables For Healthy Life</h1>
+        <div class="flex m-4">
+          <a href="" class="btn-primary">Explore</a>
+          <a href="" class="btn-secondary">Contact</a>
+        </div>
+      </div>
+    </div>
+    {% comment %} <div class="">
+      <Image class="w-screen h-screen" src="{% static 'assets/images/carousel-2.jpg' %}" alt="Image" />
+      <div class="top-0 bottom-0 start-0 end-0 flex justify-center items-center">
+        <div class="text-start p-5" >
+          <h3 class="text-font-light">Organic Fruits</h3>
+          <h1 class="text-font-light">Organic Fruits For Better Health</h1>
+          <a href="" class="me-3 btn-primary">Explore</a>
+          <a href="" class="btn-secondary">Contact</a>
+        </div>
+      </div>
+    </div> {% endcomment %}
+    <button class="" type="button">
+      <span class="" aria-hidden="true"></span>
+      <span class="hidden">Previous</span>
+    </button>
+    <button class="" type="button" >
+      <span class="" aria-hidden="true"></span>
+      <span class="hidden">Next</span>
+    </button>
+  </div>
+
+  <div class="container">
+    <div class="grid grid-flow-col">
+      <div class="col-span-6 grid justify-center bg-primary-color p-5" >
+        <img class="" src="{% static 'assets/images/bg-product-1.png' %}" alt="Image" />
+        <div class="">
+          <h3 class="text-font-light mb-3">Organic Vegetables</h3>
+          <p class="text-font-light">Dolor magna ipsum elitr sea erat elitr amet ipsum stet justo dolor, amet lorem diam no duo sed dolore amet diam</p>
+          <a class="text-font-light flex items-center" href="">Read More<FaArrowRight /></a>
+        </div>
+      </div>
+      <div class="col-span-6 grid justify-center bg-tertiary-color p-5" >
+        <Image class="" src="{% static 'assets/images/bg-product-2.png' %}" alt="Image" />
+        <div class="">
+          <h3 class="text-font-light mb-3">Organic Fruits</h3>
+          <p class="text-font-light">Dolor magna ipsum elitr sea erat elitr amet ipsum stet justo dolor, amet lorem diam no duo sed dolore amet diam</p>
+          <a class="text-font-light flex items-center" href="">Read More<FaArrowRight /></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
