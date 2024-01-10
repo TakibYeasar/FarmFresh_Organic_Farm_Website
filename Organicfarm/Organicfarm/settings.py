@@ -29,7 +29,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,14 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_countries',
     'authapi',
     'core',
     'products',
-    # 'shop',
+    'shop',
     'blogs',
     'tailwind',
     'theme',
-    'django_browser_reload'
+    'django_browser_reload',
+    'fontawesomefree',
 ]
 
 TAILWIND_APP_NAME = 'theme'
@@ -91,8 +92,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Organicfarm.wsgi.application'
-
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -160,7 +159,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'Your email address'
+# EMAIL_HOST_PASSWORD = 'password'
+

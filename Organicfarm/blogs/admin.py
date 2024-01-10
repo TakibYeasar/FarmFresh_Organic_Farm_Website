@@ -5,15 +5,13 @@ from django.contrib import admin
 from .models import (
     Articlescategory,
     Articlestag,
-    Articles,
-    ArticleReview,
-    ReplayArticleReview,
+    Article,
+    ArticleComment,
 )
 
 admin.site.register([
     Articlescategory,
     Articlestag,
-    Articles,
-    ArticleReview,
-    ReplayArticleReview,
+    Article,
+    ArticleComment,
 ])

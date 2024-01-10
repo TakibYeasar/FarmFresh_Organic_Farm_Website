@@ -1,9 +1,8 @@
 from django.db import models
 from authapi.models import CustomUser
 from django.shortcuts import reverse
-
+from .models import CustomUser
 # Create your models here.
-
 
 class Contactinfo(models.Model):
     address = models.CharField(max_length=255, blank=True, null=True)
@@ -25,7 +24,8 @@ class Banner(models.Model):
     image = models.ImageField(upload_to='banner/')
     title = models.CharField(max_length=255, blank=True, null=True)
     subtitle = models.CharField(max_length=255, blank=True, null=True)
-    slug = models.SlugField(blank=True, null=True)
+    slug = models.SlugField(
+        default="", null=False, allow_unicode=True, db_index=True, blank=True)
     created = models.DateField(auto_now_add=True)
 
     class Meta:
@@ -34,18 +34,15 @@ class Banner(models.Model):
 
     def __str__(self):
         return self.title
-
+    
     def get_absolute_url(self):
-        return reverse("core:banner", kwargs={
-            'slug': self.slug
-        })
+        return reverse('core:banners', args=[self.slug])
 
 
 class Featured(models.Model):
     image = models.ImageField(upload_to='featured/', blank=True, null=True)
     title = models.CharField(max_length=255, blank=True, null=True)
     subtitle = models.CharField(max_length=255, blank=True, null=True)
-    slug = models.SlugField(blank=True, null=True)
     created = models.DateField(auto_now_add=True)
 
     class Meta:
@@ -54,11 +51,6 @@ class Featured(models.Model):
 
     def __str__(self):
         return self.title
-
-    def get_absolute_url(self):
-        return reverse("core:featured", kwargs={
-            'slug': self.slug
-        })
 
 
 class Aboutitem(models.Model):
@@ -78,10 +70,10 @@ class About(models.Model):
     title = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     item = models.ManyToManyField(Aboutitem)
-    experiance = models.CharField(max_length=10, blank=True, null=True)
-    specialist = models.CharField(max_length=10, blank=True, null=True)
-    projects = models.CharField(max_length=10, blank=True, null=True)
-    clients = models.CharField(max_length=10, blank=True, null=True)
+    experiance = models.IntegerField(blank=True, null=True)
+    specialist = models.IntegerField(blank=True, null=True)
+    projects = models.IntegerField(blank=True, null=True)
+    clients = models.IntegerField(blank=True, null=True)
 
     class Meta:
         verbose_name_plural = 'About'
@@ -94,7 +86,6 @@ class Serviceitem(models.Model):
     icon = models.ImageField(upload_to='service/', blank=True, null=True)
     title = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    slug = models.SlugField(blank=True, null=True)
     created = models.DateField(auto_now_add=True)
 
     class Meta:
@@ -102,11 +93,6 @@ class Serviceitem(models.Model):
 
     def __str__(self):
         return self.title
-
-    def get_absolute_url(self):
-        return reverse("core:serviceitem", kwargs={
-            'slug': self.slug
-        })
 
 
 class Service(models.Model):
@@ -125,7 +111,6 @@ class Whychooseitem(models.Model):
     image = models.ImageField(upload_to='whychoose/', blank=True, null=True)
     title = models.CharField(max_length=255, blank=True, null=True)
     subtitle = models.CharField(max_length=255, blank=True, null=True)
-    slug = models.SlugField(blank=True, null=True)
     created = models.DateField(auto_now_add=True)
 
     class Meta:
@@ -133,11 +118,6 @@ class Whychooseitem(models.Model):
 
     def __str__(self):
         return self.title
-
-    def get_absolute_url(self):
-        return reverse("core:whychoose", kwargs={
-            'slug': self.slug
-        })
 
 
 class Whychoose(models.Model):
@@ -156,7 +136,8 @@ class Clients(models.Model):
     image = models.ImageField(upload_to='testimonial/', blank=True, null=True)
     comment = models.TextField(blank=True, null=True)
     name = models.CharField(max_length=255, blank=True, null=True)
-    slug = models.SlugField(blank=True, null=True)
+    slug = models.SlugField(
+        default="", null=False, allow_unicode=True, db_index=True, blank=True)
     created = models.DateField(auto_now_add=True)
 
     class Meta:
@@ -167,10 +148,8 @@ class Clients(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("core:clients", kwargs={
-            'slug': self.slug
-        })
-        
+        return reverse('core:clients', args=[self.slug])
+
 
 class Testimonial(models.Model):
     background = models.ImageField(upload_to='testimonial/', blank=True, null=True)
@@ -192,7 +171,8 @@ class Team(models.Model):
     twitter = models.CharField(max_length=255, blank=True, null=True)
     linkedin = models.CharField(max_length=255, blank=True, null=True)
     instagram = models.CharField(max_length=255, blank=True, null=True)
-    slug = models.SlugField(blank=True, null=True)
+    slug = models.SlugField(
+        default="", null=False, allow_unicode=True, db_index=True, blank=True)
     created = models.DateField(auto_now_add=True)
 
     class Meta:
@@ -203,16 +183,16 @@ class Team(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("core:team", kwargs={
-            'slug': self.slug
-        })
+        return reverse('core:team', args=[self.slug])
 
 
 class Contact(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='کاربر', related_name='messages')
     name = models.CharField(max_length=50, blank=True, null=True)
     email = models.EmailField(max_length=50, blank=True, null=True)
     subject = models.CharField(max_length=100, blank=True, null=True)
     message = models.TextField(blank=True)
+    created_at = models.DateTimeField(verbose_name='تاریخ ایجاد', auto_now_add=True)
 
     class Meta:
         verbose_name_plural = 'Contact'
@@ -220,7 +200,3 @@ class Contact(models.Model):
     def __str__(self):
         return self.email
 
-    def get_absolute_url(self):
-        return reverse("core:contact", kwargs={
-            'slug': self.slug
-        })

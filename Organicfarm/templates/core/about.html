@@ -1,28 +1,28 @@
 {% load static %}
 
 <div class="container">
-  <div class="grid grid-flow-col">
-    <div class="col-span-6 mb-5">
-      <div class="flex h-100 pt-4 border border-primary-color">
-        <Image class="mt-auto mx-auto" src="{% static 'assets/images/about.png' %}" alt='' />
-      </div>
+  <div class="grid grid-cols-2 gap-4 mt-8">
+    <div class="h-[70vh] pt-4 border border-primary-color">
+      <Image class="mx-auto" src="{% static 'assets/images/about.png' %}" alt='' />
     </div>
-    <div class="col-span-6 pb-5">
+    <div class="pb-5">
       <div class="mb-3 pb-2">
-        <h6 class="uppercase text-xl font-semibold text-primary-color">About Us</h6>
-        <h1 class="text-4xl font-bold text-tertiary-color">We Produce Organic Food For Your Family</h1>
+        <h6 class="text-primary-color text-xl uppercase font-medium">About Us</h6>
+        <h1 class="text-6xl font-bold text-tertiary-color">We Produce Organic Food For Your Family</h1>
       </div>
-      <p class="mb-4">Tempor erat elitr at rebum at at clita. Diam dolor diam ipsum et tempor sit. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus clita duo justo et tempor eirmod magna dolore erat amet magna</p>
-      <div class="grid grid-flow-col">
-        <div class="col-span-6 flex p-4">
-          <FaSlideshare class="text-xl text-tertiary-color mr-4" />
-          <h4>100% Organic</h4>
-          <p class="mb-0">Labore justo vero ipsum sit clita erat lorem magna clita nonumy dolor magna dolor vero</p>
+      <p class="text-lg text-font-color font-normal mb-4">Tempor erat elitr at rebum at at clita. Diam dolor diam ipsum et tempor sit. Clita erat ipsum et
+        lorem et sit, sed stet no labore lorem sit. Sanctus clita duo justo et tempor eirmod magna dolore erat amet
+        magna</p>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="grid items-center p-4">
+          <a href="" class="text-6xl font-bold text-tertiary-color mr-4"><i class="fa-solid fa-seedling"></i></a>
+          <h4 class="text-2xl font-bold text-tertiary-color mr-4" >100% Organic</h4>
+          <p class="text-lg font-normal text-font-color mb-0">Labore justo vero ipsum sit clita erat lorem magna clita nonumy dolor magna dolor vero</p>
         </div>
-        <div class="col-span-6 flex p-4">
-          <FaAward class="text-xl text-tertiary-color mr-4" />
-          <h4>Award Winning</h4>
-          <p class="mb-0">Labore justo vero ipsum sit clita erat lorem magna clita nonumy dolor magna dolor vero</p>
+        <div class="grid items-center p-4">
+          <a href="" class="text-6xl font-bold text-tertiary-color mr-4"><i class="fa-solid fa-award"></i></a>
+          <h4 class="text-2xl font-bold text-tertiary-color mr-4" >Award Winning</h4>
+          <p class="text-lg font-normal text-font-color mb-0">Labore justo vero ipsum sit clita erat lorem magna clita nonumy dolor magna dolor vero</p>
         </div>
       </div>
     </div>
@@ -30,48 +30,46 @@
 </div>
 
 <div class="bg-primary-color">
-  <div class="container grid grid-flow-col">
-    <div class="col-span-3 col-md-6">
-      <div class="flex">
-        <div class="rounded flex items-center justify-center mb-3" >
-          <FaStar />
-        </div>
-        <div class="ps-4">
-          <h5 class="text-white">Our Experience</h5>
-          <h1 class="text-white mb-0">12345</h1>
-        </div>
-      </div>
-    </div>
-    <div class="col-span-3 col-md-6">
-      <div class="flex">
-        <div class="rounded flex items-center justify-center mb-3" >
-          <FaUser />
-        </div>
-        <div class="ps-4">
-          <h5 class="text-white">Farm Specialist</h5>
-          <h1 class="text-white mb-0">12345</h1>
+  <div class="container">
+    <div class="grid grid-cols-4 py-14">
+      <div class="">
+        <div class="flex">
+          <div class="text-xl text-font-light p-2 bg-secondary-color rounded-full"><i class="fa-solid fa-star"></i>
+          </div>
+          <div class="ps-4">
+            <h5 class="text-3xl font-semibold text-white">Our Experience</h5>
+            <h1 class="text-5xl font-bold text-white mb-0">12345</h1>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-span-3 col-md-6">
-      <div class="flex">
-        <div class="rounded flex items-center justify-center mb-3" >
-          <FaCheck />
-        </div>
-        <div class="ps-4">
-          <h5 class="text-white">Complete Project</h5>
-          <h1 class="text-white mb-0">12345</h1>
+      <div class="">
+        <div class="flex">
+          <div class="text-xl text-font-light p-2 bg-secondary-color rounded-full"><i class="fa-solid fa-users"></i>
+          </div>
+          <div class="ps-4">
+            <h5 class="text-3xl font-semibold text-white">Farm Specialist</h5>
+            <h1 class="text-5xl font-bold text-white mb-0">12345</h1>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-span-3 col-md-6">
-      <div class="flex">
-        <div class="rounded flex items-center justify-center mb-3" >
-          <FaMugHot />
+      <div class="">
+        <div class="flex">
+          <div class="text-xl text-font-light p-2 bg-secondary-color rounded-full"><i class="fa-solid fa-check"></i>
+          </div>
+          <div class="ps-4">
+            <h5 class="text-3xl font-semibold text-white">Complete Project</h5>
+            <h1 class="text-5xl font-bold text-white mb-0">12345</h1>
+          </div>
         </div>
-        <div class="ps-4">
-          <h5 class="text-white">Happy Clients</h5>
-          <h1 class="text-white mb-0">12345</h1>
+      </div>
+      <div class="">
+        <div class="flex">
+          <div class="text-xl text-font-light p-2 bg-secondary-color rounded-full"><i class="fa-solid fa-mug-hot"></i>
+          </div>
+          <div class="ps-4">
+            <h5 class="text-3xl font-semibold text-white">Happy Clients</h5>
+            <h1 class="text-5xl font-bold text-white mb-0">12345</h1>
+          </div>
         </div>
       </div>
     </div>

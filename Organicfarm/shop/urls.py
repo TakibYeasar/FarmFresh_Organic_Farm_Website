@@ -1,16 +1,15 @@
-from django.urls import path, include
-from rest_framework import routers
-
+from django.urls import path
 from .views import *
 
-router = routers.DefaultRouter()
-router.register('cart', MyCart, basename="MyCart")
-
 urlpatterns = [
-    path("", include(router.urls)),
-    path("addToCart/", AddToCartView.as_view(), name="addToCart"),
-    path("updateCartProduct/", UpdateCartProduct.as_view(), name="updateCartProduct"),
-    path("editCartProduct/", EditCartProduct.as_view(), name="editCartProduct"),
-    path("deleteCartProduct/", DeleteCartProduct.as_view(), name="deleteCartProduct"),
-    path("deleteFullCart/", DeleteFullCart.as_view(), name="deleteFullCart"),
+    path('my-cart/', MyCartView.as_view(), name='my-cart'),
+    path('add-to-cart/<int:product_id>/',
+         AddToCartView.as_view(), name='add-to-cart'),
+    path('remove-from-cart/<int:product_id>/',
+         RemoveFromCartView.as_view(), name='remove-from-cart'),
+    path('remove-single-item-from-cart/<int:product_id>/',
+         RemoveSingleItemFromCartView.as_view(), name='remove-single-item-from-cart'),
+    path('delete-cart/', DeleteFullCartView.as_view(), name='delete-cart'),
+    path('checkout/', CheckoutView.as_view(), name='checkout'),
+    path('payment/', PaymentView.as_view(), name='payment'),
 ]

@@ -4,20 +4,14 @@ from django.contrib import admin
 
 from .models import (
     Category,
-    Shippingfaq,
-    Additionalinfo,
     Productitem,
     Products,
     Review,
-    ReplayReview,
 )
 
 admin.site.register([
     Category,
-    Shippingfaq,
-    Additionalinfo,
     Productitem,
     Products,
     Review,
-    ReplayReview,
 ])
