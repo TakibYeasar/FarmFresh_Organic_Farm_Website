@@ -3,7 +3,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 
 class CustomManager(BaseUserManager):
-    def create_user(self, email, username, password=None):
+    def create_user(self, email, username, password=None, **extra_fields):
         """
         Creates and saves a User with the given email, date of
         birth and password.
@@ -14,21 +14,23 @@ class CustomManager(BaseUserManager):
         user = self.model(
             email=self.normalize_email(email),
             username=username,
+            **extra_fields,
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, username, password=None):
+    def create_superuser(self, email, password=None, **extra_fields):
         """
         Creates and saves a superuser with the given email, date of
         birth and password.
         """
         user = self.create_user(
-            email,
+            email=email,
+            username=email,
             password=password,
-            username=username,
+            **extra_fields,
         )
         user.is_admin = True
         user.save(using=self._db)
@@ -36,12 +38,17 @@ class CustomManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser):
-    email = models.EmailField(verbose_name="Email address", max_length=255, unique=True)
-    username = models.CharField(verbose_name="Username", max_length=200, unique=True, blank=True)
-    first_name = models.CharField(verbose_name="First Name", max_length=200, blank=True, null=True)
-    last_name = models.CharField(verbose_name="Last Name", max_length=200, blank=True, null=True)
+    email = models.EmailField(
+        verbose_name="Email address", max_length=255, unique=True)
+    username = models.CharField(
+        verbose_name="Username", max_length=200, unique=True, blank=True)
+    first_name = models.CharField(
+        verbose_name="First Name", max_length=200, blank=True, null=True)
+    last_name = models.CharField(
+        verbose_name="Last Name", max_length=200, blank=True, null=True)
     password = models.CharField(verbose_name="Password", max_length=255)
-    confirm_password = models.CharField(verbose_name="Confirm Password", max_length=255)
+    confirm_password = models.CharField(
+        verbose_name="Confirm Password", max_length=255)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -49,7 +56,6 @@ class CustomUser(AbstractBaseUser):
     objects = CustomManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["username"]
 
     def __str__(self):
         return self.email
@@ -68,25 +74,27 @@ class CustomUser(AbstractBaseUser):
         "Does the user have a specific permission?"
         # Simplest possible answer: Yes, always
         return self.is_admin
-    
+
     def has_module_perms(self, app_label):
         "Does the user have permissions to view the app `app_label`?"
         # Simplest possible answer: Yes, always
         return True
 
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, blank=True, null=True)
-    profile_image = models.ImageField(verbose_name="Avatar", default='images/user.jpg', upload_to='users/', blank=True, null=True)
-    about_user = models.TextField(verbose_name= "About User", null=True, blank=True)
-    address = models.CharField(verbose_name="Address", max_length=512, blank=True, null=True)
-    city = models.CharField(max_length=32, blank=True, null=True)
-    state = models.CharField(max_length=32, blank=True, null=True)
-    country = models.CharField(max_length=32, blank=True, null=True)
-    phone = models.CharField(max_length=32, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+# class UserProfile(models.Model):
+#     user = models.OneToOneField(
+#         CustomUser, on_delete=models.CASCADE, blank=True, null=True)
+#     profile_image = models.ImageField(
+#         verbose_name="Avatar", default='images/user.jpg', upload_to='users/', blank=True, null=True)
+#     about_user = models.TextField(
+#         verbose_name="About User", null=True, blank=True)
+#     address = models.CharField(
+#         verbose_name="Address", max_length=512, blank=True, null=True)
+#     city = models.CharField(max_length=32, blank=True, null=True)
+#     state = models.CharField(max_length=32, blank=True, null=True)
+#     country = models.CharField(max_length=32, blank=True, null=True)
+#     phone = models.CharField(max_length=32, blank=True)
+#     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.user.email
-
-
+#     def __str__(self):
+#         return self.user.email

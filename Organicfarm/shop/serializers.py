@@ -1,7 +1,5 @@
-from .models import Address
-from .models import Order, Payment
+from .models import *
 from rest_framework import serializers
-from .models import Cart, CartProduct
 
 
 class CartSerializer(serializers.ModelSerializer):

@@ -1,10 +1,9 @@
 from django.db import models
 from authapi.models import CustomUser
-from products.models import Productitem
-from django.conf import settings
-from django_countries.fields import CountryField
+from core.models import Productitem
 
 # Create your models here.
+
 
 class Cart(models.Model):
     customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -29,9 +28,11 @@ ADDRESS_TYPE = (
     ("bill", "billing"),
 )
 
+
 class Address(models.Model):
     user = models.ForeignKey(CustomUser, default=1, on_delete=models.CASCADE)
-    address_type = models.CharField(max_length=10, choices=ADDRESS_TYPE, default="ship")
+    address_type = models.CharField(
+        max_length=10, choices=ADDRESS_TYPE, default="ship")
     first_name = models.CharField(max_length=200, blank=True, null=True)
     last_name = models.CharField(max_length=200, blank=True, null=True)
     email = models.EmailField(max_length=255, blank=True, null=True)
@@ -46,8 +47,10 @@ class Address(models.Model):
     def __str__(self):
         return f"{self.user.username} => {self.email}"
 
+
 class Payment(models.Model):
-    customer = models.ForeignKey(CustomUser, default=1, on_delete=models.CASCADE)
+    customer = models.ForeignKey(
+        CustomUser, default=1, on_delete=models.CASCADE)
     payment_id = models.CharField(max_length=100)
     amount_paid = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
@@ -65,20 +68,22 @@ ORDER_STATUS = (
     ("Order Canceled", "Order Canceled"),
 )
 
+
 class Order(models.Model):
     cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
     ordered_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    address = models.ForeignKey(Address, on_delete=models.PROTECT, null=True, blank=True)
-    payment = models.ForeignKey(Payment, on_delete=models.SET_NULL, blank=True, null=True)
+    address = models.ForeignKey(
+        Address, on_delete=models.PROTECT, null=True, blank=True)
+    payment = models.ForeignKey(
+        Payment, on_delete=models.SET_NULL, blank=True, null=True)
     subtotal = models.DecimalField(decimal_places=2, max_digits=8, default=0)
     discount = models.DecimalField(decimal_places=2, max_digits=8)
     total = models.DecimalField(decimal_places=2, max_digits=8)
     order_status = models.CharField(max_length=50, choices=ORDER_STATUS)
-    payment_complete = models.BooleanField(default=False, blank=True, null=True)
-    created_at = models.DateTimeField(verbose_name="Order date", auto_now_add=True)
-    
+    payment_complete = models.BooleanField(
+        default=False, blank=True, null=True)
+    created_at = models.DateTimeField(
+        verbose_name="Order date", auto_now_add=True)
+
     def __str__(self):
         return self.ordered_by.username
-
-
-

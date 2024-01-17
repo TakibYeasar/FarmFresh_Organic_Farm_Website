@@ -20,13 +20,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
+    path('admin/', admin.site.urls),
     path('api/auth/', include('authapi.urls')),
+    path('api/articles/', include('articles.urls')),
     path('', include('core.urls')),
-    path('api/products/', include('products.urls')),
     path('api/shop/', include('shop.urls')),
-    path('api/blogs/', include('blogs.urls')),
 ]
 
 if settings.DEBUG:

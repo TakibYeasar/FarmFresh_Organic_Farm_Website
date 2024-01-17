@@ -115,6 +115,45 @@ class WhychooseSerializer(serializers.ModelSerializer):
         return response
     
 
+class ProductImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductImage
+        fields = "__all__"
+        depth = 1
+
+    def get_image_url(self, obj):
+        request = self.context.get('request')
+        if request:
+            return request.build_absolute_uri(obj.image.url)
+        else:
+            return obj.image.url
+
+
+class ProductitemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Productitem
+        fields = "__all__"
+        depth = 1
+
+    def get_image_url(self, obj):
+        request = self.context.get('request')
+        if request:
+            return request.build_absolute_uri(obj.image.url)
+        else:
+            return obj.image.url
+
+class ProductsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Products
+        fields = "__all__"
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        request = self.context.get('request')
+        response['item'] = ProductitemSerializer(
+            instance.item, context={'request': request}).data
+        return response
+
 
 class ClientsSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,10 +1,11 @@
 {% load static %}
 
+{% if info %}
 <div class="container">
   <div class="grid grid-flow-col items-center py-4">
     <div class="col-span-3 flex items-center justify-start">
       <a href="" class="mr-2 text-3xl font-semibold text-primary-color"><i class="fa-solid fa-phone-volume"></i></a>
-      <h2 class="mb-0 text-3xl font-semibold">+012 345 6789</h2>
+      <h2 class="mb-0 text-3xl font-semibold">{{ info.mobile }}</h2>
     </div>
     <div class="col-span-6 flex items-center justify-center">
       <a href="/" class="">
@@ -13,17 +14,19 @@
       </a>
     </div>
     <div class="col-span-3 flex items-center justify-end">
-      <a class="text-xl text-font-light p-2 bg-primary-color rounded-full mx-2 hover:text-font-color" href="#"><i
+      <a class="text-xl text-font-light p-2 bg-primary-color rounded-full mx-2 hover:text-font-color" href={{ info.twitter_link }}><i
           class="fa-brands fa-twitter"></i></a>
-      <a class="text-xl text-font-light p-2 bg-primary-color rounded-full mx-2 hover:text-font-color" href="#"><i
+      <a class="text-xl text-font-light p-2 bg-primary-color rounded-full mx-2 hover:text-font-color" href={{ info.facebook_link }}><i
           class="fa-brands fa-facebook"></i></a>
-      <a class="text-xl text-font-light p-2 bg-primary-color rounded-full mx-2 hover:text-font-color" href="#"><i
+      <a class="text-xl text-font-light p-2 bg-primary-color rounded-full mx-2 hover:text-font-color" href={{ info.linkedin_link }}><i
           class="fa-brands fa-linkedin"></i></a>
-      <a class="text-xl text-font-light p-2 bg-primary-color rounded-full mx-2 hover:text-font-color" href="#"><i
+      <a class="text-xl text-font-light p-2 bg-primary-color rounded-full mx-2 hover:text-font-color" href={{ info.instagram_link }}><i
           class="fa-brands fa-instagram"></i></a>
     </div>
   </div>
 </div>
+
+{% endif %}
 
 
 <nav class="sticky top-0 bg-primary-color">
@@ -35,7 +38,7 @@
       <a href="/product" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Product</a>
       <div class="nav-item">
         <a href="#" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Pages</a>
-        <div class="m-0 p-5 grid bg-bg-color hidden">
+        <div class="m-0 p-5 bg-bg-color hidden">
           <a href="/blog" class="nav-link text-font-color">Blog Grid</a>
           <a href="/detail" class="nav-link text-font-color">Blog Detail</a>
           <a href="/feature" class="nav-link text-font-color">Features</a>

@@ -8,6 +8,7 @@ import stripe
 
 # Create your views here.
 
+
 class MyCartView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -50,7 +51,6 @@ class AddToCartView(APIView):
 
         serializer = CartSerializer(cart)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
 
 
 class RemoveFromCartView(APIView):
@@ -187,5 +187,3 @@ class PaymentView(APIView):
         except Exception as e:
             # Log the error for debugging
             return Response({"error": "An error occurred"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-

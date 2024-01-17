@@ -1,29 +1,19 @@
 {% load static %}
 
 <div class="">
+  {% for item in banners %}
   <div class="relative">
     <div class="relative">
-      <Image class="w-screen h-screen" src="{% static 'assets/images/carousel-1.jpg' %}" alt="Image" />
+      <Image class="w-screen h-screen" src={{item.image}} alt="Image" />
       <div class="absolute top-0">
-        <h3 class="text-font-light text-3xl font-semibold m-4">Organic Vegetables</h3>
-        <h1 class="text-font-light text-5xl font-semibold m-4">Organic Vegetables For Healthy Life</h1>
+        <h3 class="text-font-light text-3xl font-semibold m-4">{{item.title}}</h3>
+        <h1 class="text-font-light text-5xl font-semibold m-4">{{item.subtitle}}</h1>
         <div class="flex m-4">
           <a href="" class="btn-primary">Explore</a>
           <a href="" class="btn-secondary">Contact</a>
         </div>
       </div>
     </div>
-    {% comment %} <div class="">
-      <Image class="w-screen h-screen" src="{% static 'assets/images/carousel-2.jpg' %}" alt="Image" />
-      <div class="top-0 bottom-0 start-0 end-0 flex justify-center items-center">
-        <div class="text-start p-5" >
-          <h3 class="text-font-light">Organic Fruits</h3>
-          <h1 class="text-font-light">Organic Fruits For Better Health</h1>
-          <a href="" class="me-3 btn-primary">Explore</a>
-          <a href="" class="btn-secondary">Contact</a>
-        </div>
-      </div>
-    </div> {% endcomment %}
     <div class="absolute top-0 py-auto justify-between">
       <button class="text-5xl font-medium" type="button">
         <i class="fa-solid fa-chevron-left"></i>
@@ -33,6 +23,7 @@
       </button>
     </div>
   </div>
+  {% endfor %}
 
   <div class="container transform -translate-y-[40%]">
     <div class="grid grid-cols-2">
