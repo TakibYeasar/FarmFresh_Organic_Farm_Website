@@ -6,74 +6,33 @@
     <h1 class="text-6xl font-bold text-tertiary-color">We Are Professional Organic Farmers</h1>
   </div>
   <div class="grid grid-cols-3 gap-4">
+
+    {%for item in team%}
+
     <div class="">
       <div class="grid grid-cols-12">
         <div class="col-span-10">
           <div class="relative">
-            <Image class="h-[55vh] w-[30vw]" src="{% static 'assets/images/team-1.jpg' %}" alt="" />
+            <Image class="h-[55vh] w-[30vw]" src="{{ item.image }}" alt="" />
             <div class="absolute start-0 bottom-0 bg-primary-color w-full py-3 px-4">
-              <h4 class="text-font-light text-3xl font-semibold">Farmer Name</h4>
-              <span class="text-font-light text-xl font-normal">Designation</span>
+              <h4 class="text-font-light text-3xl font-semibold">{{item.name}}</h4>
+              <span class="text-font-light text-xl font-normal">{{item.designation}}</span>
             </div>
           </div>
         </div>
         <div class="col-span-2 bg-secondary-color grid items-center justify-around py-5">
-          <a class="text-xl text-secondary-color p-2 bg-bg-color rounded-full" href="#"><i
+          <a class="text-xl text-secondary-color p-2 bg-bg-color rounded-full" href="{{item.twitter}}"><i
               class="fa-brands fa-twitter"></i></a>
-          <a class="text-xl text-secondary-color p-2 bg-bg-color rounded-full" href="#"><i
+          <a class="text-xl text-secondary-color p-2 bg-bg-color rounded-full" href="{{item.facebook}}"><i
               class="fa-brands fa-facebook"></i></a>
-          <a class="text-xl text-secondary-color p-2 bg-bg-color rounded-full" href="#"><i
+          <a class="text-xl text-secondary-color p-2 bg-bg-color rounded-full" href="{{item.linkedin}}"><i
               class="fa-brands fa-linkedin"></i></a>
-          <a class="text-xl text-secondary-color p-2 bg-bg-color rounded-full" href="#"><i
+          <a class="text-xl text-secondary-color p-2 bg-bg-color rounded-full" href="{{item.instagram}}"><i
               class="fa-brands fa-instagram"></i></a>
         </div>
       </div>
     </div>
-    <div class="">
-      <div class="grid grid-cols-12">
-        <div class="col-span-10">
-          <div class="relative">
-            <Image class="h-[55vh] w-[30vw]" src="{% static 'assets/images/team-2.jpg' %}" alt="" />
-            <div class="absolute start-0 bottom-0 bg-primary-color w-full py-3 px-4">
-              <h4 class="text-font-light text-3xl font-semibold">Farmer Name</h4>
-              <span class="text-font-light text-xl font-normal">Designation</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-span-2 bg-secondary-color grid items-center justify-around py-5">
-          <a class="text-xl text-secondary-color p-2 bg-bg-color rounded-full" href="#"><i
-              class="fa-brands fa-twitter"></i></a>
-          <a class="text-xl text-secondary-color p-2 bg-bg-color rounded-full" href="#"><i
-              class="fa-brands fa-facebook"></i></a>
-          <a class="text-xl text-secondary-color p-2 bg-bg-color rounded-full" href="#"><i
-              class="fa-brands fa-linkedin"></i></a>
-          <a class="text-xl text-secondary-color p-2 bg-bg-color rounded-full" href="#"><i
-              class="fa-brands fa-instagram"></i></a>
-        </div>
-      </div>
-    </div>
-    <div class="">
-      <div class="grid grid-cols-12">
-        <div class="col-span-10">
-          <div class="relative">
-            <Image class="h-[55vh] w-[30vw]" src="{% static 'assets/images/team-3.jpg' %}" alt="" />
-            <div class="absolute start-0 bottom-0 bg-primary-color w-full py-3 px-4">
-              <h4 class="text-font-light text-3xl font-semibold">Farmer Name</h4>
-              <span class="text-font-light text-xl font-normal">Designation</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-span-2 bg-secondary-color grid items-center justify-around py-5">
-          <a class="text-xl text-secondary-color p-2 bg-bg-color rounded-full" href="#"><i
-              class="fa-brands fa-twitter"></i></a>
-          <a class="text-xl text-secondary-color p-2 bg-bg-color rounded-full" href="#"><i
-              class="fa-brands fa-facebook"></i></a>
-          <a class="text-xl text-secondary-color p-2 bg-bg-color rounded-full" href="#"><i
-              class="fa-brands fa-linkedin"></i></a>
-          <a class="text-xl text-secondary-color p-2 bg-bg-color rounded-full" href="#"><i
-              class="fa-brands fa-instagram"></i></a>
-        </div>
-      </div>
-    </div>
+
+    {%endfor%}
   </div>
 </div>

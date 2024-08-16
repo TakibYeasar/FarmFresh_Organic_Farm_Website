@@ -1,23 +1,30 @@
 {% load static %}
 
-<div class="">
-  <img class="h-[75vh] w-full" src="{% static 'assets/images/testimonial.jpg' %}" alt="" />
-  <div class="container">
-    <div class="grid bg-primary-color max-w-[50vw]">
-      <div class="text-center text-font-light p-12">
-        <img class="mx-auto ring-4 ring-secondary-color p-2 rounded-full" src="{% static 'assets/images/testimonial-1.jpg' %}" alt="" />
-        <p class="text-xl font-medium text-font-light my-4">Dolores sed duo clita justo dolor et stet lorem kasd dolore lorem ipsum. At lorem lorem magna ut et,
-          nonumy labore diam erat. Erat dolor rebum sit ipsum.</p>
-        <hr class="mx-auto max-w-sm my-4" />
-        <h4 class="text-3xl font-medium text-font-light">Client Name</h4>
-      </div>
-      {% comment %} <div class="text-center text-font-light p-12">
-        <img class="mx-auto ring-4 ring-secondary-color p-2 rounded-full" src="{% static 'assets/images/testimonial-2.jpg' %}" alt="" />
-        <p class="text-xl font-medium text-font-light my-4">Dolores sed duo clita justo dolor et stet lorem kasd dolore lorem ipsum. At lorem lorem magna ut et,
-          nonumy labore diam erat. Erat dolor rebum sit ipsum.</p>
-        <hr class="mx-auto max-w-sm my-4" />
-        <h4 class="text-3xl font-medium text-font-light">Client Name</h4>
-      </div> {% endcomment %}
+<div class="testimonial-section">
+  <img class="h-[75vh] w-full" src="{% static 'path/to/your/banner-image.jpg' %}" alt="Banner Image" />
+
+  <div class="container mx-auto">
+    <div class="grid gap-8 bg-primary-color max-w-[50vw] mx-auto">
+      
+      {% for testimonial in testimonial %}
+        <div class="text-center text-font-light p-12">
+          <img class="mx-auto ring-4 ring-secondary-color p-2 rounded-full" src="{% static testimonial.image %}" alt="Client Image" />
+          <p class="text-xl font-medium text-font-light my-4">
+            {{ testimonial.text }}
+          </p>
+          <hr class="mx-auto max-w-sm my-4" />
+          <h4 class="text-3xl font-medium text-font-light">
+            {{ testimonial.client_name }}
+          </h4>
+        </div>
+      {% empty %}
+        <div class="text-center text-font-light p-12">
+          <p class="text-xl font-medium text-font-light">
+            No testimonials available at the moment.
+          </p>
+        </div>
+      {% endfor %}
+      
     </div>
   </div>
 </div>

@@ -33,6 +33,8 @@ class CustomManager(BaseUserManager):
             **extra_fields,
         )
         user.is_admin = True
+        user.is_staff = True
+        user.is_superuser = True
         user.save(using=self._db)
         return user
 
@@ -51,6 +53,11 @@ class CustomUser(AbstractBaseUser):
         verbose_name="Confirm Password", max_length=255)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)
+    last_logind = models.DateTimeField(
+        auto_now_add=True, null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
 
     objects = CustomManager()
@@ -81,20 +88,23 @@ class CustomUser(AbstractBaseUser):
         return True
 
 
-# class UserProfile(models.Model):
-#     user = models.OneToOneField(
-#         CustomUser, on_delete=models.CASCADE, blank=True, null=True)
-#     profile_image = models.ImageField(
-#         verbose_name="Avatar", default='images/user.jpg', upload_to='users/', blank=True, null=True)
-#     about_user = models.TextField(
-#         verbose_name="About User", null=True, blank=True)
-#     address = models.CharField(
-#         verbose_name="Address", max_length=512, blank=True, null=True)
-#     city = models.CharField(max_length=32, blank=True, null=True)
-#     state = models.CharField(max_length=32, blank=True, null=True)
-#     country = models.CharField(max_length=32, blank=True, null=True)
-#     phone = models.CharField(max_length=32, blank=True)
-#     created_at = models.DateTimeField(auto_now_add=True)
+class UserProfile(models.Model):
+    user = models.OneToOneField(
+        CustomUser, on_delete=models.CASCADE, blank=True, null=True)
+    picture = models.ImageField(
+        default='images/user.jpg', upload_to='images/profile_img', blank=True, null=True)
+    status = models.CharField(max_length=100)
+    about_user = models.TextField(
+        verbose_name="About User", null=True, blank=True)
+    address = models.CharField(
+        verbose_name="Address", max_length=512, blank=True, null=True)
+    company = models.CharField(max_length=255, blank=True)
+    website = models.URLField(max_length=255, blank=True)
+    city = models.CharField(max_length=32, blank=True, null=True)
+    state = models.CharField(max_length=32, blank=True, null=True)
+    country = models.CharField(max_length=32, blank=True, null=True)
+    phone = models.CharField(max_length=32, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
-#     def __str__(self):
-#         return self.user.email
+    def __str__(self):
+        return self.user.email

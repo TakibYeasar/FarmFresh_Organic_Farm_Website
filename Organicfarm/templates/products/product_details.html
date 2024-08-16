@@ -5,88 +5,56 @@
 <div class="container">
     <nav aria-label="">
         <ol class="mt-50">
-            <li class=""><a href="#">Home</a></li>
-            <li class=""><a href="#">Furniture</a></li>
-            <li class=""><a href="#">Chairs</a></li>
-            <li class="">white modern chair</li>
+            <li class=""><a href="{% url 'home' %}">Home</a></li>
+            <li class=""><a href="{% url 'all-product-list' %}">Products</a></li>
+            <li class="">Product Details</li>
         </ol>
     </nav>
 
-    <div class="grid">
-        <div class="col-span-6">
-            <div class="">
-                <div id="product_details_slider" class="">
-                    <ol class="">
-                        <li class="active" data-target="#product_details_slider" data-slide-to="0" style="backgrounimage: url(img/product-img/pro-big-1.jpg);">
-                        </li>
-                        <li data-target="#product_details_slider" data-slide-to="1" style="backgrounimage: url(img/product-img/pro-big-2.jpg);">
-                        </li>
-                        <li data-target="#product_details_slider" data-slide-to="2" style="backgrounimage: url(img/product-img/pro-big-3.jpg);">
-                        </li>
-                        <li data-target="#product_details_slider" data-slide-to="3" style="backgrounimage: url(img/product-img/pro-big-4.jpg);">
-                        </li>
-                    </ol>
-                    <div class="">
-                        <div class="">
-                            <a class="" href="{% static 'assets/images/product-img/pro-big-1.jpg' %}">
-                                <img class="block w-100" src="{% static 'assets/images/product-img/pro-big-1.jpg' %}" alt="First slide" />
+    <div class="grid grid-cols-2 gap-4 mt-8">
+        <div class="h-[70vh] pt-4 border border-primary-color">
+            <div id="product_details_slider" class="relative">
+                <!-- Slider for product images -->
+                <div class="flex">
+                    {% for image in product.images %}
+                        <div class="w-full">
+                            <a href="{% static 'images/products/'|add:product.images.0 %}">
+                                <img class="block w-full" src="{% static 'images/products/'|add:image %}" alt="Product Image" />
                             </a>
                         </div>
-                        <div class="">
-                            <a class="" href="{% static 'assets/images/product-img/pro-big-2.jpg' %}">
-                                <img class="block w-100" src="{% static 'assets/images/product-img/pro-big-2.jpg' %}" alt="Second slide" />
-                            </a>
-                        </div>
-                        <div class="">
-                            <a class="" href="{% static 'assets/images/product-img/pro-big-3.jpg' %}">
-                                <img class="block w-100" src="{% static 'assets/images/product-img/pro-big-3.jpg' %}" alt="Third slide" />
-                            </a>
-                        </div>
-                        <div class="">
-                            <a class="" href="{% static 'assets/images/product-img/pro-big-4.jpg' %}">
-                                <img class="block w-100" src="{% static 'assets/images/product-img/pro-big-4.jpg' %}" alt="Fourth slide" />
-                            </a>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
-        <div class="col-span-5">
-            <div class="">
-                <div class="">
-                    <div class=""></div>
-                    <p class="">$180</p>
-                    <a href=""><h6>White Modern Chair</h6></a>
-                    <div class="mb-15 flex items-center justify-between">
-                        <div class="">
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </div>
-                        <div class=""><a href="#">Write A Review</a></div>
-                    </div>
-                    <p class=""><i class="fa fa-circle"></i> In Stock</p>
-                </div>
-
-                <div class="my-5">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quae eveniet culpa officia quidem mollitia impedit iste asperiores nisi reprehenderit consequatur, autem, nostrum pariatur enim?</p>
-                </div>
-
-                <form class="" method="post">
-                    <div class="flex mb-50">
-                        <p>Qty</p>
-                        <div class="">
-                            <span class="" ><i class="fa fa-caret-down" aria-hidden="true"></i></span>
-                            <input type="number" class="" name="quantity" value="1" />
-                            <span class=""><i class="fa fa-caret-up" aria-hidden="true"></i></span>
-                        </div>
-                    </div>
-                    {/* <button type="submit" name="addtocart" value="5" class="btn-style" >Add to cart</button> */}
-                </form>
-
+        <div class="pb-5">
+            <div class="mb-3 pb-2">
+                <h6 class="text-primary-color text-xl uppercase font-medium">{{ product.name }}</h6>
+                <h1 class="text-6xl font-bold text-tertiary-color">${{ product.price }}</h1>
             </div>
+            <p class="text-lg text-font-color font-normal mb-4">{{ product.description }}</p>
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </div>
+                <div><a href="#">Write A Review</a></div>
+            </div>
+            <p class="text-lg"><i class="fa fa-circle"></i> In Stock</p>
+            <form class="mt-4" method="post">
+                {% csrf_token %}
+                <div class="flex mb-4 items-center">
+                    <p class="mr-4">Qty</p>
+                    <div class="flex items-center border border-gray-300 rounded">
+                        <span class="px-2 py-1 cursor-pointer"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+                        <input type="number" class="w-16 text-center border-none" name="quantity" value="1" />
+                        <span class="px-2 py-1 cursor-pointer"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
+                    </div>
+                </div>
+                <button type="submit" class="btn-style">Add to cart</button>
+            </form>
         </div>
     </div>
 </div>

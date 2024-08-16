@@ -1,0 +1,56 @@
+{% load static %}
+
+{% if info %}
+  {% for item in info %}
+  <div class="container">
+    <div class="grid grid-flow-col items-center py-4">
+      <div class="col-span-3 flex items-center justify-start">
+        <a href="" class="mr-2 text-3xl font-semibold text-primary-color"><i class="fa-solid fa-phone-volume"></i></a>
+        <h2 class="mb-0 text-3xl font-semibold">{{ item.mobile }}</h2>
+      </div>
+      <div class="col-span-6 flex items-center justify-center">
+        <a href="/" class="">
+          <h1 class="m-0 text-4xl font-semibold text-primary-color"><span class="text-secondary-color">Farm</span>Fresh
+          </h1>
+        </a>
+      </div>
+      <div class="col-span-3 flex items-center justify-end">
+        <a class="text-xl text-font-light p-2 bg-primary-color rounded-full mx-2 hover:text-font-color" href="{{ item.twitter_link }}"><i
+            class="fa-brands fa-twitter"></i></a>
+        <a class="text-xl text-font-light p-2 bg-primary-color rounded-full mx-2 hover:text-font-color" href="{{ item.facebook_link }}"><i
+            class="fa-brands fa-facebook"></i></a>
+        <a class="text-xl text-font-light p-2 bg-primary-color rounded-full mx-2 hover:text-font-color" href="{{ item.linkedin_link }}"><i
+            class="fa-brands fa-linkedin"></i></a>
+        <a class="text-xl text-font-light p-2 bg-primary-color rounded-full mx-2 hover:text-font-color" href="{{ item.instagram_link }}"><i
+            class="fa-brands fa-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+{% else %}
+  <p>No contact info available.</p>
+{% endif %}
+
+
+
+<nav class="sticky top-0 bg-primary-color">
+  <div class="container">
+    <div class="mx-auto max-w-[40vw] flex justify-evenly items-center">
+      <a href="/" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Home</a>
+      <a href="/about" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">About</a>
+      <a href="/service" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Service</a>
+      <a href="/product" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Product</a>
+      <a href="/blog" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Blog</a>
+      {% comment %} <div class="nav-item">
+        <a href="#" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Pages</a>
+        <div class="m-0 p-5 bg-bg-color">
+          <a href="/blog" class="nav-link text-font-color">Blog Grid</a>
+          <a href="/feature" class="nav-link text-font-color">Features</a>
+          <a href="/team" class="nav-link text-font-color">The Team</a>
+          <a href="/testimonial" class="nav-link text-font-color">Testimonial</a>
+        </div>
+      </div> {% endcomment %}
+      <a href="/contact" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Contact</a>
+    </div>
+  </div>
+</nav>

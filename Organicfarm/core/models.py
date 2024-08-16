@@ -2,6 +2,9 @@ from django.db import models
 from authapi.models import CustomUser
 from django.shortcuts import reverse
 from django.utils.text import slugify
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
+from django.core.exceptions import ValidationError
 # Create your models here.
 
 class Contactinfo(models.Model):
@@ -39,6 +42,12 @@ class Featured(models.Model):
     title = models.CharField(max_length=255, blank=True, null=True)
     subtitle = models.CharField(max_length=255, blank=True, null=True)
     created = models.DateField(auto_now_add=True)
+    is_deletable = models.BooleanField(default=False)
+    
+    def save(self, *args, **kwargs):
+        if not self.is_deletable and Featured.objects.count() >= 2:
+            raise ValidationError("Only 2 Featured objects can be created.")
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = 'Featureds'
@@ -48,84 +57,29 @@ class Featured(models.Model):
         return self.title
 
 
-class Aboutitem(models.Model):
-    icon = models.ImageField(upload_to='about/', blank=True, null=True)
-    title = models.CharField(max_length=255, blank=True, null=True)
-    subtitle = models.CharField(max_length=255, blank=True, null=True)
-
-    class Meta:
-        verbose_name_plural = 'About Item'
-
-    def __str__(self):
-        return self.title
+@receiver(post_save, sender=Featured)
+def limit_featured_count(sender, instance, created, **kwargs):
+    if created and Featured.objects.count() > 2:
+        instance.delete()
 
 
-class About(models.Model):
-    image = models.ImageField(upload_to='about/', blank=True, null=True)
-    title = models.CharField(max_length=255, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
-    item = models.ManyToManyField(Aboutitem)
-    experiance = models.IntegerField(blank=True, null=True)
-    specialist = models.IntegerField(blank=True, null=True)
-    projects = models.IntegerField(blank=True, null=True)
-    clients = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        verbose_name_plural = 'About'
-
-    def __str__(self):
-        return self.title
-
-
-class Serviceitem(models.Model):
-    icon = models.ImageField(upload_to='service/', blank=True, null=True)
-    title = models.CharField(max_length=255, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
-    created = models.DateField(auto_now_add=True)
-
-    class Meta:
-        verbose_name_plural = 'Service Item'
-
-    def __str__(self):
-        return self.title
+@receiver(post_delete, sender=Featured)
+def enable_featured_creation(sender, instance, **kwargs):
+    Featured.objects.all().update(is_deletable=True)
 
 
 class Service(models.Model):
+    icon = models.ImageField(upload_to='service/', blank=True, null=True)
     title = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    item = models.ManyToManyField(Serviceitem)
+    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name_plural = 'Service'
+        verbose_name_plural = 'Services'
 
     def __str__(self):
         return self.title
 
-
-class Whychooseitem(models.Model):
-    image = models.ImageField(upload_to='whychoose/', blank=True, null=True)
-    title = models.CharField(max_length=255, blank=True, null=True)
-    subtitle = models.CharField(max_length=255, blank=True, null=True)
-    created = models.DateField(auto_now_add=True)
-
-    class Meta:
-        verbose_name_plural = 'Whychoose Item'
-
-    def __str__(self):
-        return self.title
-
-
-class Whychoose(models.Model):
-    image = models.ImageField(upload_to='whychoose/', blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
-    item = models.ManyToManyField(Whychooseitem)
-
-    class Meta:
-        verbose_name_plural = 'Whychoose'
-
-    def __str__(self):
-        return str(self.image)
-    
 
 class ProductImage(models.Model):
     image = models.ImageField(upload_to='products/')
@@ -168,17 +122,6 @@ class Productitem(models.Model):
     def get_absolute_url(self):
         return reverse('products:productitem', args=[self.slug])
 
-
-
-class Products(models.Model):
-    background_left = models.ImageField(
-        upload_to='product/', blank=True, null=True)
-    background_right = models.ImageField(
-        upload_to='product/', blank=True, null=True)
-    item = models.ManyToManyField(Productitem)
-
-    class Meta:
-        verbose_name_plural = 'products'
 
 
 class Clients(models.Model):
@@ -241,8 +184,7 @@ class Team(models.Model):
 
 
 class Contact(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE,
-                             verbose_name='کاربر', related_name='messages')
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='messages')
     name = models.CharField(max_length=50, blank=True, null=True)
     email = models.EmailField(max_length=50, blank=True, null=True)
     subject = models.CharField(max_length=100, blank=True, null=True)

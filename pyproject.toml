@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "fullstack-django-drf organic-farm-website"
+name = "farmfresh-organic-farm-website"
 version = "0.1.0"
 description = ""
 authors = ["Takib Yeasar <mdtakibyeasar@gmail.com>"]
@@ -21,6 +21,7 @@ stripe = "^7.11.0"
 attrs = "^23.2.0"
 python-dotenv = "^1.0.0"
 django-browser-reload = "^1.12.1"
+djangorestframework-simplejwt = "^5.3.1"
 
 
 [build-system]
