@@ -13,6 +13,7 @@
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {%if articles%}
     {% for article in articles %}
     <div class="relative overflow-hidden">
       <img class="w-full h-48 object-cover" src="{{ article.images.first.image.url }}" alt="{{ article.title }}" />
@@ -22,6 +23,9 @@
       </a>
     </div>
     {% endfor %}
+    {% else %}
+  <p>No articles available.</p>
+{% endif %}
   </div>
 
   <div class="mt-6">

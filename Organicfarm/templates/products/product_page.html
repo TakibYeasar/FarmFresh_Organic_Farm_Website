@@ -17,6 +17,7 @@
             <h1 class="">Our Fresh & Organic Products</h1>
         </div>
         <div class="grid grid-cols-4 gap-4">
+            {%if products%}
             {% for product in products %}
                 <div class="relative bg-bg-color p-4 rounded shadow">
                     <img class="mb-4 w-full" src="{{ product.main_image.image.url }}" alt="{{ product.title }}" />
@@ -25,11 +26,14 @@
                         <h5 class="mb-0">${{ product.price }}</h5>
                         <div class="flex justify-center mt-2">
                             <a class="py-2 px-3" href="{{ product.get_absolute_url }}"><i class="fa-solid fa-cart-shopping"></i></a>
-                            <a class="py-2 px-3" href="{{ product.get_absolute_url }}"><i class="fa-regular fa-eye"></i></a>
+                             <a class="py-2 px-3" href="{% url 'product-detail' product.id %}"><i class="fa-regular fa-eye"></i></a>
                         </div>
                     </div>
                 </div>
             {% endfor %}
+            {% else %}
+  <p>No products available.</p>
+{% endif %}
         </div>
     </div>
 

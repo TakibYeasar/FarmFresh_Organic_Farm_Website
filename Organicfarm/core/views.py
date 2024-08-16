@@ -10,41 +10,47 @@ from rest_framework.response import Response
 class HomeView(APIView):
     def get(self, request):
         try:
-            # Fetch contact information
-            info_obj = Contactinfo.objects.all()
-            info_serializer = ContactinfoSerializer(
-                info_obj, many=True, context={'request': request}).data
+            # # Fetch contact information
+            # info_obj = Contactinfo.objects.all()
+            # info_serializer = ContactinfoSerializer(
+            #     info_obj, many=True, context={'request': request}).data
 
-            # Fetch banners
-            featured_obj = Featured.objects.all()
-            featured_serializer = FeaturedSerializer(
-                featured_obj, many=True, context={'request': request}).data
+            # # Fetch banners
+            # featured_obj = Featured.objects.all()
+            # featured_serializer = FeaturedSerializer(
+            #     featured_obj, many=True, context={'request': request}).data
             
-            # Fetch featured
-            banner_obj = Banner.objects.all()
-            banner_serializer = BannerSerializer(
-                banner_obj, many=True, context={'request': request}).data
+            # # Fetch featured
+            # banner_obj = Banner.objects.all()
+            # banner_serializer = BannerSerializer(
+            #     banner_obj, many=True, context={'request': request}).data
             
-            # # Fetch team
-            team_obj = Team.objects.all()
-            team_serializer = TeamSerializer(
-                team_obj, context={'request': request}, many=True).data
+            # # # Fetch team
+            # team_obj = Team.objects.all()
+            # team_serializer = TeamSerializer(
+            #     team_obj, context={'request': request}, many=True).data
             
-            # # Fetch team
-            test_obj = Testimonial.objects.all()
-            test_serializer = TestimonialSerializer(
-                test_obj, context={'request': request}, many=True).data
+            # # # Fetch testimonial
+            # test_obj = Testimonial.objects.all()
+            # test_serializer = TestimonialSerializer(
+            #     test_obj, context={'request': request}, many=True).data
+            
+            # # # Fetch products
+            # products = Productitem.objects.all()[:5]
+            # products_data = ProductitemSerializer(products, many=True).data
 
-            context = {
-                'info': info_serializer,
-                'banners': banner_serializer,
-                'featured': featured_serializer,
-                'team': team_serializer,
-                'testimonial': test_serializer,
-            }
+            # context = {
+            #     'info': info_serializer,
+            #     'banners': banner_serializer,
+            #     'featured': featured_serializer,
+            #     'team': team_serializer,
+            #     'testimonial': test_serializer,
+            #     'products': products_data,
+            # }
 
             # Render home page with contact info and banners
-            return render(request, 'pages/home.html', context)
+            return render(request, 'pages/home.html')
+            # return render(request, 'pages/home.html', context)
         except ObjectDoesNotExist:
             return render(request, 'pages/home.html', {'error': "No content found"}, status=status.HTTP_404_NOT_FOUND)
 
@@ -131,10 +137,23 @@ class GetProductView(APIView):
             show_all = request.GET.get('show_all', False)
 
             if show_all:
+                
+                # fetch heading info
+                info_obj = Contactinfo.objects.all()
+                info_serializer = ContactinfoSerializer(
+                    info_obj, many=True, context={'request': request}).data
+                
                 # Show all products
                 products = Productitem.objects.all()
                 products_data = ProductitemSerializer(products, many=True).data
-                context = {'products': products_data}
+                
+                
+                context = {
+                    'info': info_serializer,
+                    'products': products_data,
+                    }
+                
+                
                 return render(request, 'products/product_page.html', context)
             else:
                 # Show only the first 10 products

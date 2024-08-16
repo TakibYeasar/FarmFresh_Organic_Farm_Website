@@ -6,6 +6,7 @@
     <h1 class="text-6xl font-bold text-tertiary-color">We Are Professional Organic Farmers</h1>
   </div>
   <div class="grid grid-cols-3 gap-4">
+    {%if team%}
 
     {%for item in team%}
 
@@ -34,5 +35,8 @@
     </div>
 
     {%endfor%}
+    {% else %}
+  <p>No team member available.</p>
+{% endif %}
   </div>
 </div>

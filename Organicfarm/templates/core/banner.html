@@ -1,6 +1,7 @@
 {% load static %}
 
 <div class="">
+  {%if banners%}
   {% for item in banners %}
   <div class="relative">
     <div class="relative">
@@ -24,13 +25,14 @@
     </div>
   </div>
   {% empty %}
-  <script>
-    console.error("No banners found");
-  </script>
   {% endfor %}
+  {% else %}
+  <p>No banners available.</p>
+{% endif %}
 
   <div class="container transform -translate-y-[40%]">
     <div class="grid grid-cols-2">
+      {%if featured%}
       {% for item in featured %}
       <div class="grid justify-center relative" style="background-color: calc(var(--color{{ loop.counter }}))">
         <img class="" src="{{ item.image }}" alt="Image" />
@@ -40,10 +42,10 @@
         </div>
       </div>
       {% empty %}
-      <script>
-        console.error("No featured items found");
-      </script>
       {% endfor %}
+      {% else %}
+  <p>No featured available.</p>
+{% endif %}
     </div>
   </div>
 </div>

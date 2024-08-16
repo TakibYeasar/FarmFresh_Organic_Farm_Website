@@ -2,6 +2,8 @@ from .models import *
 from .serializers import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.shortcuts import render, redirect
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 import stripe
@@ -10,15 +12,21 @@ import stripe
 
 
 class MyCartView(APIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def get(self, request):
         try:
-            cart = Cart.objects.get(customer=request.user, ordered=False)
-            serializer = CartSerializer(cart)
-            return Response(serializer.data)
-        except Cart.DoesNotExist:
-            return Response({"error": "You do not have an active order"}, status=status.HTTP_404_NOT_FOUND)
+            # cart = Cart.objects.get(customer=request.user, ordered=False)
+            # cart_serializer = CartSerializer(cart, many=True, context={
+            #                                  'request': request}).data
+            # context = {'cart': cart_serializer}
+            return render(request, 'shop/cart.html')
+        except ObjectDoesNotExist as e:
+            return render(request, 'shop/cart.html', {'error': str(e)}, status=status.HTTP_404_NOT_FOUND)
+        #     return Response(serializer.data)
+        # except Cart.DoesNotExist:
+        #     return Response({"error": "You do not have an active order"}, status=status.HTTP_404_NOT_FOUND)
+
 
 
 class AddToCartView(APIView):
