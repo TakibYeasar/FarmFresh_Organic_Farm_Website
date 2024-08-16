@@ -1,37 +1,28 @@
 {% load static %}
 
 <div class="container">
-  <div class="mx-auto text-center my-6 max-w-[40vw]" >
+  <div class="mx-auto text-center my-6 max-w-[40vw]">
     <h6 class="text-primary-color text-xl uppercase font-medium">Our Blog</h6>
     <h1 class="text-6xl font-bold text-tertiary-color">Latest Articles From Our Blog Post</h1>
   </div>
   <div class="grid grid-flow-col gap-4">
-    <div class="col-span-4">
-      <div class="relative">
-        <img class="" src="" alt="" />
-        <a class="absolute top-0" href="">
-          <h4 class="text-font-light">Lorem elitr magna stet eirmod labore amet</h4>
-          <span class="text-font-light">Jan 01, 2050</span>
-        </a>
+    {% for article in articles %}
+      <div class="col-span-4">
+        <div class="relative">
+          {% if article.images.all %}
+            <img class="w-full h-auto object-cover" src="{{ article.images.first.image.url }}" alt="{{ article.title }}" />
+          {% else %}
+            <img class="w-full h-auto object-cover" src="{% static 'default-image.jpg' %}" alt="{{ article.title }}" />
+          {% endif %}
+          <a class="absolute top-0 left-0 w-full p-4 bg-gradient-to-t from-black to-transparent text-white" href="{% url 'blogs:article' article.slug %}">
+            <h4 class="text-font-light">{{ article.title }}</h4>
+            <span class="text-font-light">{{ article.created|date:"M d, Y" }}</span>
+          </a>
+        </div>
       </div>
-    </div>
-    <div class="col-span-4">
-      <div class="relative">
-        <img class="" src="" alt="" />
-        <a class="absolute top-0" href="">
-          <h4 class="text-font-light">Lorem elitr magna stet eirmod labore amet</h4>
-          <span class="text-font-light">Jan 01, 2050</span>
-        </a>
-      </div>
-    </div>
-    <div class="col-span-4">
-      <div class="relative">
-        <img class="" src="" alt="" />
-        <a class="absolute top-0" href="">
-          <h4 class="text-font-light">Lorem elitr magna stet eirmod labore amet</h4>
-          <span class="text-font-light">Jan 01, 2050</span>
-        </a>
-      </div>
-    </div>
+    {% endfor %}
   </div>
+  <div class="text-center mt-6">
+        <a href="{% url 'all-article-list' %}?show_all=True" class="btn-primary">See All Products</a>
+    </div>
 </div>

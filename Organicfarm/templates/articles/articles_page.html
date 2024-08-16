@@ -6,86 +6,44 @@
 <div class="container">
   <div class="grid justify-start">
     <div class="col-span-8 text-center">
-      <h1 class=" text-font-light">Blog Grid</h1>
+      <h1 class="text-font-light">Blog Grid</h1>
       <a href="" class="me-3">Home</a>
-      <a href="" class="">Blog Grid</a>
+      <a href="">Blog Grid</a>
     </div>
   </div>
 
-  <div class="grid">
-    <div class="col-span-8">
-      <div class="grid">
-          <div class="col-span-6">
-            <div class="relative overflow-hidden">
-              <Image class="" src="{% static 'assets/images/blog-1.jpg' %}" alt="" />
-              <a class="" href="">
-                <h4 class="text-font-light">Lorem elitr magna stet eirmod labore amet</h4>
-                <span class="text-font-light">Jan 01, 2050</span>
-              </a>
-            </div>
-          </div>
-          <div class="col-span-6">
-            <div class="relative overflow-hidden">
-              <Image class="" src="{% static 'assets/images/blog-2.jpg' %}" alt="" />
-              <a class="" href="">
-                <h4 class="text-font-light">Lorem elitr magna stet eirmod labore amet</h4>
-                <span class="text-font-light">Jan 01, 2050</span>
-              </a>
-            </div>
-          </div>
-          <div class="col-span-6">
-            <div class="relative overflow-hidden">
-              <Image class="" src="{% static 'assets/images/blog-3.jpg' %}" alt="" />
-              <a class="" href="">
-                <h4 class="text-font-light">Lorem elitr magna stet eirmod labore amet</h4>
-                <span class="text-font-light">Jan 01, 2050</span>
-              </a>
-            </div>
-          </div>
-        <div class="col-span-12">
-          <nav aria-label="">
-            <ul class="justify-center m-0">
-              <li class="">
-                <a class="" href="#"><span aria-hidden="true"><FaArrowLeft /></span></a>
-              </li>
-              <li class=""><a class="" href="#">1</a></li>
-              <li class=""><a class="" href="#">2</a></li>
-              <li class=""><a class="" href="#">3</a></li>
-              <li class="">
-                <a class="" href="#"><span aria-hidden="true"><FaArrowRight /></span></a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {% for article in articles %}
+    <div class="relative overflow-hidden">
+      <img class="w-full h-48 object-cover" src="{{ article.images.first.image.url }}" alt="{{ article.title }}" />
+      {% comment %} <a class="absolute inset-0 flex flex-col justify-end p-4 bg-gradient-to-t from-black to-transparent" href="{% url 'blogs:article_detail' article.slug %}"> {% endcomment %}
+        <h4 class="text-font-light text-lg">{{ article.title }}</h4>
+        <span class="text-font-light text-sm">{{ article.created|date:"M d, Y" }}</span>
+      </a>
     </div>
+    {% endfor %}
+  </div>
 
-    <div class="col-span-4">
-      <div class="mb-5">
-        <div class="">
-          <input type="text" class="p-3" placeholder="Keyword" />
-          <button class="px-4"><FaSearch /></button>
-        </div>
-      </div>
-
-      {% include 'core/categories.html' %}
-
-      {% include 'core/recentpost.html' %}
-
-      <div class="mb-5">
-        <Image src={blog01} alt="" class="rounded" />
-      </div>
-
-      {% include 'core/blogtags.html' %}
-
-      <div>
-        <h2 class="mb-4">Plain Text</h2>
-        <div class="text-center text-font-light" >
-          <p>Vero sea et accusam justo dolor accusam lorem consetetur, dolores sit amet sit dolor clita kasd justo, diam accusam no sea ut tempor magna takimata, amet sit et diam dolor ipsum amet diam</p>
-          <a href="" class="btn-style">Read More</a>
-        </div>
-      </div>
-    </div>
+  <div class="mt-6">
+    <nav aria-label="Page navigation">
+      <ul class="flex justify-center space-x-2">
+        {% if page_obj.has_previous %}
+        <li>
+          <a class="btn-style" href="?page={{ page_obj.previous_page_number }}"><span aria-hidden="true"><FaArrowLeft /></span></a>
+        </li>
+        {% endif %}
+        {% for num in page_obj.paginator.page_range %}
+        {% comment %} <li>
+          <a class="btn-style {{ page_obj.number == num|yesno:"bg-primary-color,text-white," }}" href="?page={{ num }}">{{ num }}</a>
+        </li> {% endcomment %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <li>
+          <a class="btn-style" href="?page={{ page_obj.next_page_number }}"><span aria-hidden="true"><FaArrowRight /></span></a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
   </div>
 </div>
 

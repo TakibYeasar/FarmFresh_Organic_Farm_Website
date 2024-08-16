@@ -32,24 +32,21 @@
 {% endif %}
 
 
-
 <nav class="sticky top-0 bg-primary-color">
   <div class="container">
     <div class="mx-auto max-w-[40vw] flex justify-evenly items-center">
       <a href="/" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Home</a>
-      <a href="/about" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">About</a>
-      <a href="/service" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Service</a>
-      <a href="/product" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Product</a>
-      <a href="/blog" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Blog</a>
-      {% comment %} <div class="nav-item">
+      <a href="#service" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Service</a>
+      <a href="#testimonial" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Testimonial</a>
+      <a href="#team" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Team</a>
+      <div class="nav-item">
         <a href="#" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Pages</a>
         <div class="m-0 p-5 bg-bg-color">
-          <a href="/blog" class="nav-link text-font-color">Blog Grid</a>
-          <a href="/feature" class="nav-link text-font-color">Features</a>
-          <a href="/team" class="nav-link text-font-color">The Team</a>
-          <a href="/testimonial" class="nav-link text-font-color">Testimonial</a>
+          <a href="/about" class="nav-link text-font-color">About</a>
+          <a href="{% url 'all-product-list' %}?show_all=True" class="nav-link text-font-color">Product</a>
+          <a href="{% url 'all-article-list' %}?show_all=True" class="nav-link text-font-color">Blog</a>
         </div>
-      </div> {% endcomment %}
+      </div>
       <a href="/contact" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Contact</a>
     </div>
   </div>

@@ -4,9 +4,9 @@ from . import views
 urlpatterns = [
     path('categories/', views.GetArticleCategoriesView.as_view(),
          name='get_categories'),
-    path('articles/', views.GetArticleView.as_view(), name='get_articles'),
+    path('articles/', views.GetArticleView.as_view(), name='all-article-list'),
     path('articles/<int:id>/', views.GetArticleView.as_view(),
-         name='get_article_by_id'),
+         name='article-detail'),
     path('articles/category/<int:category_id>/',
          views.ArticleByCategory.as_view(), name='articles_by_category'),
     path('articles/<int:article_id>/comments/',

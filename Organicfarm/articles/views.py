@@ -4,6 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.shortcuts import render
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
@@ -53,22 +54,41 @@ class GetArticleCategoriesView(APIView):
 class GetArticleView(APIView):
     def get(self, request, *args, **kwargs):
         article_id = kwargs.get('id')
+
         if article_id:
             try:
                 article = Article.objects.get(id=article_id)
                 category = article.category.all().values_list('id', flat=True)
                 comments = ArticleComment.objects.filter(article=article)
+
+                # Serialize the article data
                 serializer = ArticlesSerializer(article)
-                serializer.data['category'] = list(category)
-                serializer.data['comments'] = [
+                article_data = serializer.data
+                article_data['category'] = list(category)
+                article_data['comments'] = [
                     {'comment': comment.comment_field} for comment in comments]
-                return Response(serializer.data, status=status.HTTP_200_OK)
-            except ObjectDoesNotExist:
-                return Response({'error': "No article found"}, status=status.HTTP_404_NOT_FOUND)
+
+                context = {'article': article_data}
+                return render(request, 'articles/article_details.html', context)
+            except Article.DoesNotExist:
+                context = {'error': "No article found"}
+                return render(request, 'articles/article_details.html', context, status=status.HTTP_404_NOT_FOUND)
         else:
-            articles = Article.objects.all()
-            articles_data = ArticlesSerializer(articles, many=True).data
-            return Response(data=articles_data, status=status.HTTP_200_OK)
+            # Check if the user wants to see all articles
+            show_all = request.GET.get('show_all', False)
+
+            if show_all:
+                # Show all articles
+                articles = Article.objects.all()
+                articles_data = ArticlesSerializer(articles, many=True).data
+                context = {'articles': articles_data}
+                return render(request, 'articles/articles_page.html', context)
+            else:
+                # Show only the first 10 articles
+                articles = Article.objects.all()[:10]
+                articles_data = ArticlesSerializer(articles, many=True).data
+                context = {'articles': articles_data}
+                return render(request, 'articles/article.html', context)
 
 
 # class GetArticleView(APIView):

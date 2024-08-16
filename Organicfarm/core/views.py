@@ -49,6 +49,13 @@ class HomeView(APIView):
             return render(request, 'pages/home.html', {'error': "No content found"}, status=status.HTTP_404_NOT_FOUND)
 
 
+class AboutView(APIView):
+    def get(self, request):
+        try:
+            return render(request, 'pages/about.html')
+        except ObjectDoesNotExist:
+            return render(request, 'pages/about.html', {'error': "No content found"}, status=status.HTTP_404_NOT_FOUND)
+
 
 class HeadinginfoView(APIView):
     def get(self, request):
@@ -110,19 +117,31 @@ class ServiceView(APIView):
 class GetProductView(APIView):
     def get(self, request, *args, **kwargs):
         product_id = kwargs.get('id')
+
         if product_id:
             try:
                 product = Productitem.objects.get(id=product_id)
                 product_serializer = ProductitemSerializer(product).data
                 context = {'product': product_serializer}
                 return render(request, 'products/product_details.html', context)
-            except ObjectDoesNotExist:
-                return render(request, 'core/banner.html', {'error': "No services found"}, status=status.HTTP_404_NOT_FOUND)
+            except Productitem.DoesNotExist:
+                return render(request, 'products/product_details.html', {'error': "No product found"}, status=status.HTTP_404_NOT_FOUND)
         else:
-            products = Productitem.objects.all()
-            products_data = ProductitemSerializer(products, many=True).data
-            context = {'products': products_data}
-            return render(request, 'products/products.html', context)
+            # Check if the user wants to see all products
+            show_all = request.GET.get('show_all', False)
+
+            if show_all:
+                # Show all products
+                products = Productitem.objects.all()
+                products_data = ProductitemSerializer(products, many=True).data
+                context = {'products': products_data}
+                return render(request, 'products/product_page.html', context)
+            else:
+                # Show only the first 10 products
+                products = Productitem.objects.all()[:10]
+                products_data = ProductitemSerializer(products, many=True).data
+                context = {'products': products_data}
+                return render(request, 'products/products.html', context)
 
 
 class TestimonialView(APIView):
@@ -159,3 +178,13 @@ class TeamView(APIView):
             return render(request, 'core/team.html', context=context)
         except ObjectDoesNotExist:
             return render(request, 'core/team.html', {'error': "No team found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+class ContactView(APIView):
+    def get(self, request):
+        try:
+            return render(request, 'pages/contact.html')
+        except ObjectDoesNotExist:
+            return render(request, 'pages/contact.html', {'error': "No content found"}, status=status.HTTP_404_NOT_FOUND)
+
+
