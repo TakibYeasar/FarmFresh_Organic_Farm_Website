@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from .models import *
 from .serializers import *
+from articles.models import *
+from articles.serializers import *
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -10,47 +12,50 @@ from rest_framework.response import Response
 class HomeView(APIView):
     def get(self, request):
         try:
-            # # Fetch contact information
-            # info_obj = Contactinfo.objects.all()
-            # info_serializer = ContactinfoSerializer(
-            #     info_obj, many=True, context={'request': request}).data
+            # Fetch contact information
+            info_obj = Contactinfo.objects.all()
+            info_serializer = ContactinfoSerializer(
+                info_obj, many=True, context={'request': request}).data
 
-            # # Fetch banners
-            # featured_obj = Featured.objects.all()
-            # featured_serializer = FeaturedSerializer(
-            #     featured_obj, many=True, context={'request': request}).data
+            # Fetch banners
+            featured_obj = Featured.objects.all()
+            featured_serializer = FeaturedSerializer(
+                featured_obj, many=True, context={'request': request}).data
             
-            # # Fetch featured
-            # banner_obj = Banner.objects.all()
-            # banner_serializer = BannerSerializer(
-            #     banner_obj, many=True, context={'request': request}).data
+            # Fetch featured
+            banner_obj = Banner.objects.all()
+            banner_serializer = BannerSerializer(
+                banner_obj, many=True, context={'request': request}).data
             
-            # # # Fetch team
-            # team_obj = Team.objects.all()
-            # team_serializer = TeamSerializer(
-            #     team_obj, context={'request': request}, many=True).data
+            # # Fetch team
+            team_obj = Team.objects.all()
+            team_serializer = TeamSerializer(
+                team_obj, context={'request': request}, many=True).data
             
-            # # # Fetch testimonial
-            # test_obj = Testimonial.objects.all()
-            # test_serializer = TestimonialSerializer(
-            #     test_obj, context={'request': request}, many=True).data
+            # # Fetch testimonial
+            test_obj = Testimonial.objects.all()
+            test_serializer = TestimonialSerializer(
+                test_obj, context={'request': request}, many=True).data
             
-            # # # Fetch products
-            # products = Productitem.objects.all()[:5]
-            # products_data = ProductitemSerializer(products, many=True).data
+            # # Fetch products
+            products = Productitem.objects.all()[:5]
+            products_data = ProductitemSerializer(products, many=True).data
+            
+            # # Fetch products
+            articles = Article.objects.all()[:5]
+            articles_data = ArticlesSerializer(articles, many=True).data
 
-            # context = {
-            #     'info': info_serializer,
-            #     'banners': banner_serializer,
-            #     'featured': featured_serializer,
-            #     'team': team_serializer,
-            #     'testimonial': test_serializer,
-            #     'products': products_data,
-            # }
-
-            # Render home page with contact info and banners
-            return render(request, 'pages/home.html')
-            # return render(request, 'pages/home.html', context)
+            context = {
+                'info': info_serializer,
+                'banners': banner_serializer,
+                'featured': featured_serializer,
+                'team': team_serializer,
+                'testimonial': test_serializer,
+                'products': products_data,
+                'articles': articles_data,
+            }
+            
+            return render(request, 'pages/home.html', context)
         except ObjectDoesNotExist:
             return render(request, 'pages/home.html', {'error': "No content found"}, status=status.HTTP_404_NOT_FOUND)
 
@@ -58,66 +63,25 @@ class HomeView(APIView):
 class AboutView(APIView):
     def get(self, request):
         try:
-            return render(request, 'pages/about.html')
-        except ObjectDoesNotExist:
-            return render(request, 'pages/about.html', {'error': "No content found"}, status=status.HTTP_404_NOT_FOUND)
-
-
-class HeadinginfoView(APIView):
-    def get(self, request):
-        try:
+            # Fetch contact information
             info_obj = Contactinfo.objects.all()
-            if not info_obj:
-                raise ObjectDoesNotExist("No contact info found")
-
             info_serializer = ContactinfoSerializer(
                 info_obj, many=True, context={'request': request}).data
-            context = {'info': info_serializer}
-            return render(request, 'header.html', context)
-        except ObjectDoesNotExist as e:
-            return render(request, 'header.html', {'error': str(e)}, status=status.HTTP_404_NOT_FOUND)
-        #     return Response(info_serializer, status=status.HTTP_200_OK)
-        # except ObjectDoesNotExist:
-        #     return Response({'error': "No Banner found"}, status=status.HTTP_404_NOT_FOUND)
 
+            # # Fetch team
+            team_obj = Team.objects.all()
+            team_serializer = TeamSerializer(
+                team_obj, context={'request': request}, many=True).data
 
-class BannerView(APIView):
-    def get(self, request):
-        try:
-            banner_obj = Banner.objects.all()
-            banner_serializer = BannerSerializer(
-                banner_obj, many=True, context={'request': request}).data
-            context = {'banners': banner_serializer}
-            return render(request, 'core/banner.html', context=context)
+            
+            context = {
+                'info': info_serializer,
+                'team': team_serializer,
+            }
+
+            return render(request, 'pages/about.html', context)
         except ObjectDoesNotExist:
-            return render(request, 'core/banner.html', {'error': "No banner found"}, status=status.HTTP_404_NOT_FOUND)
-
-
-class FeaturedView(APIView):
-    def get(self, request):
-        try:
-            featured_obj = Featured.objects.all()
-            featured_serializer = FeaturedSerializer(
-                featured_obj, many=True, context={'request': request}).data
-            context = {'featured': featured_serializer}
-            return render(request, 'core/banner.html', context)
-        except ObjectDoesNotExist:
-            return render(request, 'core/banner.html', {'error': "No featured found"}, status=status.HTTP_404_NOT_FOUND)
-
-
-class ServiceView(APIView):
-    def get(self, request):
-        try:
-            service_obj = Service.objects.all()
-            service_serializer = ServiceSerializer(
-                service_obj, many=True, context={'request': request}).data
-        #     return Response(service_serializer, status=status.HTTP_200_OK)
-        # except ObjectDoesNotExist:
-        #     return Response({'error': "No services found"}, status=status.HTTP_404_NOT_FOUND)
-            context = {'services': service_serializer}
-            return render(request, 'core/banner.html', context)
-        except ObjectDoesNotExist:
-            return render(request, 'core/banner.html', {'error': "No services found"}, status=status.HTTP_404_NOT_FOUND)
+            return render(request, 'pages/about.html', {'error': "No content found"}, status=status.HTTP_404_NOT_FOUND)
 
 
 class GetProductView(APIView):
@@ -155,49 +119,6 @@ class GetProductView(APIView):
                 
                 
                 return render(request, 'products/product_page.html', context)
-            else:
-                # Show only the first 10 products
-                products = Productitem.objects.all()[:10]
-                products_data = ProductitemSerializer(products, many=True).data
-                context = {'products': products_data}
-                return render(request, 'products/products.html', context)
-
-
-class TestimonialView(APIView):
-    def get(self, request):
-        try:
-            test_obj = Testimonial.objects.all()
-            test_serializer = TestimonialSerializer(
-                test_obj, context={'request': request}, many=True).data
-            data = []
-            for clients in test_serializer:
-                item_obj = Clients.objects.all()
-                clients['item'] = ClientsSerializer(
-                    item_obj, context={'request': request}, many=True).data
-                data.append(clients)
-        #     return Response(data, status=status.HTTP_200_OK)
-        # except ObjectDoesNotExist:
-        #     return Response({'error': "No testimonial found"}, status=status.HTTP_404_NOT_FOUND)
-            context = {'testimonial': data}
-            return render(request, 'core/testimonials.html', context)
-        except ObjectDoesNotExist:
-            return render(request, 'core/testimonials.html', {'error': "No testimonials found"}, status=status.HTTP_404_NOT_FOUND)
-
-
-class TeamView(APIView):
-    def get(self, request):
-        try:
-            team_obj = Team.objects.all()
-            team_serializer = TeamSerializer(
-                team_obj, context={'request': request}, many=True).data
-        #     return Response(team_serializer, status=status.HTTP_200_OK)
-        # except ObjectDoesNotExist:
-        #     return Response({'error': "No services found"}, status=status.HTTP_404_NOT_FOUND)
-            context = {'team': team_serializer}
-            return render(request, 'core/team.html', context=context)
-        except ObjectDoesNotExist:
-            return render(request, 'core/team.html', {'error': "No team found"}, status=status.HTTP_404_NOT_FOUND)
-
 
 class ContactView(APIView):
     def get(self, request):

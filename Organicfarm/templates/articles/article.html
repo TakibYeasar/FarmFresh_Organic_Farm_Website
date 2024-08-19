@@ -15,7 +15,7 @@
           {% else %}
             <img class="w-full h-auto object-cover" src="{% static 'default-image.jpg' %}" alt="{{ article.title }}" />
           {% endif %}
-          <a class="absolute top-0 left-0 w-full p-4 bg-gradient-to-t from-black to-transparent text-white" href="{% url 'blogs:article' article.slug %}">
+          {% comment %} <a class="absolute top-0 left-0 w-full p-4 bg-gradient-to-t from-black to-transparent text-white" href="{% url 'blogs:article' article.slug %}"> {% endcomment %}
             <h4 class="text-font-light">{{ article.title }}</h4>
             <span class="text-font-light">{{ article.created|date:"M d, Y" }}</span>
           </a>

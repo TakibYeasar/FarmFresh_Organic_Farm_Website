@@ -1,5 +1,7 @@
 from .models import *
 from .serializers import *
+from core.models import *
+from core.serializers import *
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -8,47 +10,6 @@ from django.shortcuts import render
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
-
-# class GetArticleView(APIView):
-
-#     template_name = 'article_detail.html'  # Set your HTML template file path here
-
-#     def get(self, request, *args, **kwargs):
-#         article_id = kwargs.get('id')
-
-#         if article_id:
-#             try:
-#                 article = get_object_or_404(Article, id=article_id)
-#                 category = article.category.all().values_list('name', flat=True)
-#                 comments = ArticleComment.objects.filter(article=article)
-
-#                 context = {
-#                     'article': article,
-#                     'category': list(category),
-#                     'comments': [{'comment': comment.comment_field} for comment in comments],
-#                 }
-
-#                 return render(request, self.template_name, context)
-
-#             except ObjectDoesNotExist:
-#                 return render(request, self.template_name, {'error': "No article found"})
-
-#         else:
-#             articles = Article.objects.all()
-#             articles_data = ArticlesSerializer(articles, many=True).data
-#             context = {'articles_data': articles_data}
-
-#             return render(request, self.template_name, context)
-
-class GetArticleCategoriesView(APIView):
-    def get(self, request, *args, **kwargs):
-        try:
-            category = Articlescategory.objects.all()
-            category_data = ArticlescategorySerializer(
-                category, many=True).data
-            return Response(data=category_data, status=status.HTTP_200_OK)
-        except ObjectDoesNotExist:
-            return Response({'error': "No category found"}, status=status.HTTP_404_NOT_FOUND)
 
 
 class GetArticleView(APIView):
@@ -78,37 +39,27 @@ class GetArticleView(APIView):
             show_all = request.GET.get('show_all', False)
 
             if show_all:
+                # Fetch contact information
+                info_obj = Contactinfo.objects.all()
+                info_serializer = ContactinfoSerializer(
+                    info_obj, many=True, context={'request': request}).data
+                
                 # Show all articles
                 articles = Article.objects.all()
                 articles_data = ArticlesSerializer(articles, many=True).data
-                context = {'articles': articles_data}
+                
+                # show all category
+                category = Articlescategory.objects.all()
+                category_data = ArticlescategorySerializer(
+                    category, many=True).data
+                
+                context = {
+                    'info': info_serializer,
+                    'articles': articles_data,
+                    'categories': category_data,
+                    }
                 return render(request, 'articles/articles_page.html', context)
-            else:
-                # Show only the first 10 articles
-                articles = Article.objects.all()[:10]
-                articles_data = ArticlesSerializer(articles, many=True).data
-                context = {'articles': articles_data}
-                return render(request, 'articles/article.html', context)
-
-
-# class GetArticleView(APIView):
-#     def get(self, request, *args, **kwargs):
-#         article_id = kwargs.get('id')
-#         if article_id:
-#             article = get_object_or_404(Article, id=article_id)
-#             category = article.category.all().values_list('name', flat=True)
-#             comments = ArticleComment.objects.filter(article=article)
-#             context = {
-#                 'article': article,
-#                 'category': list(category),
-#                 'comments': comments
-#             }
-#             return render(request, 'article_detail.html', context)
-#         else:
-#             articles = Article.objects.all()
-#             context = {'articles': articles}
-#             return render(request, 'article_list.html', context)
-
+            
 
 class ArticleByCategory(APIView):
     def get(self, request, category_id):

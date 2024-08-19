@@ -1,5 +1,7 @@
 from .models import *
 from .serializers import *
+from core.models import *
+from core.serializers import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import render, redirect
@@ -20,7 +22,17 @@ class MyCartView(APIView):
             # cart_serializer = CartSerializer(cart, many=True, context={
             #                                  'request': request}).data
             # context = {'cart': cart_serializer}
-            return render(request, 'shop/cart.html')
+            
+            # Fetch contact information
+            info_obj = Contactinfo.objects.all()
+            info_serializer = ContactinfoSerializer(
+                info_obj, many=True, context={'request': request}).data
+
+            context = {
+                'info': info_serializer,
+            }
+            
+            return render(request, 'shop/cart.html', context)
         except ObjectDoesNotExist as e:
             return render(request, 'shop/cart.html', {'error': str(e)}, status=status.HTTP_404_NOT_FOUND)
         #     return Response(serializer.data)
@@ -124,35 +136,54 @@ class DeleteFullCartView(APIView):
 
 
 class CheckoutView(APIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def get(self, request):
         try:
-            order = Order.objects.get(user=request.user, ordered=False)
-            serializer = OrderSerializer(order)
-            return Response(serializer.data)
-        except Order.DoesNotExist:
-            return Response({"error": "You do not have an active order"}, status=status.HTTP_404_NOT_FOUND)
 
-    def post(self, request):
-        try:
-            order = Order.objects.get(user=request.user, ordered=False)
-            address_serializer = AddressSerializer(
-                data=request.data)
-            if address_serializer.is_valid():
-                address_serializer.save(
-                    user=request.user, address_type='B')
-                order.address = address_serializer.instance
-                order.save()
-                payment_option = request.data.get('payment_option')
-                if payment_option:
-                    return Response({"redirect_url": "/core/payment/stripe"})
-                else:
-                    return Response({"error": "Invalid payment option selected"}, status=status.HTTP_400_BAD_REQUEST)
-            else:
-                return Response(address_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except Order.DoesNotExist:
-            return Response({"error": "You do not have an active order"}, status=status.HTTP_404_NOT_FOUND)
+            # Fetch contact information
+            info_obj = Contactinfo.objects.all()
+            info_serializer = ContactinfoSerializer(
+                info_obj, many=True, context={'request': request}).data
+
+            context = {
+                'info': info_serializer,
+            }
+
+            return render(request, 'shop/checkout.html', context)
+        except ObjectDoesNotExist as e:
+            return render(request, 'shop/checkout.html', {'error': str(e)}, status=status.HTTP_404_NOT_FOUND)
+
+# class CheckoutView(APIView):
+#     # permission_classes = [IsAuthenticated]
+
+#     def get(self, request):
+#         try:
+#             order = Order.objects.get(user=request.user, ordered=False)
+#             serializer = OrderSerializer(order)
+#             return Response(serializer.data)
+#         except Order.DoesNotExist:
+#             return Response({"error": "You do not have an active order"}, status=status.HTTP_404_NOT_FOUND)
+
+#     def post(self, request):
+#         try:
+#             order = Order.objects.get(user=request.user, ordered=False)
+#             address_serializer = AddressSerializer(
+#                 data=request.data)
+#             if address_serializer.is_valid():
+#                 address_serializer.save(
+#                     user=request.user, address_type='B')
+#                 order.address = address_serializer.instance
+#                 order.save()
+#                 payment_option = request.data.get('payment_option')
+#                 if payment_option:
+#                     return Response({"redirect_url": "/core/payment/stripe"})
+#                 else:
+#                     return Response({"error": "Invalid payment option selected"}, status=status.HTTP_400_BAD_REQUEST)
+#             else:
+#                 return Response(address_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#         except Order.DoesNotExist:
+#             return Response({"error": "You do not have an active order"}, status=status.HTTP_404_NOT_FOUND)
 
 
 class PaymentView(APIView):

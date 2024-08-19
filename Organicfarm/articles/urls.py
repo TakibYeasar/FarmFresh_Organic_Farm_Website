@@ -2,8 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('categories/', views.GetArticleCategoriesView.as_view(),
-         name='get_categories'),
     path('articles/', views.GetArticleView.as_view(), name='all-article-list'),
     path('articles/<int:id>/', views.GetArticleView.as_view(),
          name='article-detail'),
