@@ -32,23 +32,31 @@
 {% endif %}
 
 
-<nav class="sticky top-0 bg-primary-color">
+<nav class="sticky top-0 bg-primary-color z-50">
   <div class="container">
     <div class="mx-auto max-w-[40vw] flex justify-evenly items-center">
       <a href="/" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Home</a>
-      <a href="#service" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Service</a>
-      <a href="#testimonial" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Testimonial</a>
-      <a href="#team" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Team</a>
-      <div class="nav-item">
+      <div class="relative nav-item">
         <a href="#" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Pages</a>
-        <div class="m-0 p-5 bg-bg-color">
-          <a href="/about" class="nav-link text-font-color">About</a>
-          <a href="{% url 'all-product-list' %}?show_all=True" class="nav-link text-font-color">Product</a>
-          <a href="/api/shop/my-cart" class="nav-link text-font-color">Cart</a>
-          <a href="{% url 'all-article-list' %}?show_all=True" class="nav-link text-font-color">Blog</a>
+        <div class="absolute hidden p-5 bg-bg-color nav-dropdown z-50">
+          <a href="/about" class="block nav-link text-font-color">About</a>
+          <a href="{% url 'all-product-list' %}?show_all=True" class="block nav-link text-font-color">Product</a>
+          <a href="/api/shop/my-cart" class="block nav-link text-font-color">Cart</a>
+          <a href="{% url 'all-article-list' %}?show_all=True" class="block nav-link text-font-color">Blog</a>
         </div>
       </div>
       <a href="/contact" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Contact</a>
+      <a href="/api/auth/register-user" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Sign-Up</a>
+      <a href="/api/auth/login-user" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Sign-In</a>
+      <a href="/api/auth/logout" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Logout</a>
     </div>
   </div>
 </nav>
+
+<style>
+  .nav-item:hover .nav-dropdown {
+    display: block;
+    z-index: 50;
+  }
+
+</style>

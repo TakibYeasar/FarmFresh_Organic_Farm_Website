@@ -3,6 +3,7 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from .models import *
 from .serializers import *
 from .utils import send_email
+from django.shortcuts import render, redirect
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
@@ -13,6 +14,11 @@ from rest_framework.views import APIView
 
 
 class UserRegisterView(APIView):
+    
+    def get(self, request):
+        serializer = UserRegesterationSerializer()
+        return render(request, 'authentication/registration.html', {'serializer': serializer})
+    
     def post(self, request):
         serializer = UserRegesterationSerializer(data=request.data)
         if serializer.is_valid():
@@ -72,6 +78,10 @@ class ActivationResendView(APIView):
 
 class LoginUserView(APIView):
     permission_classes = [permissions.AllowAny, ]
+    
+    def get(self, request):
+        serializer = LoginSerializer()
+        return render(request, 'authentication/login.html', {'serializer': serializer})
 
     def post(self, request):
         serializer = LoginSerializer(data=request.data)

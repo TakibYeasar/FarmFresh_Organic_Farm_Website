@@ -123,7 +123,17 @@ class GetProductView(APIView):
 class ContactView(APIView):
     def get(self, request):
         try:
-            return render(request, 'pages/contact.html')
+            # Fetch contact information
+            info_obj = Contactinfo.objects.all()
+            info_serializer = ContactinfoSerializer(
+                info_obj, many=True, context={'request': request}).data
+            
+            context = {
+                'info': info_serializer,
+            }
+            
+            
+            return render(request, 'pages/contact.html', context)
         except ObjectDoesNotExist:
             return render(request, 'pages/contact.html', {'error': "No content found"}, status=status.HTTP_404_NOT_FOUND)
 
