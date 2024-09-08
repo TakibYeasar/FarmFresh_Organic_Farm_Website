@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="">
+    <div class="relative">
+        <img src="{% static 'assets/images/carousel-2.jpg' %}" class="h-[40vh]" alt=""/>
+        <div class="absolute t-[10vh]">
+            <h3 class="text-font-light">Change Password</h3>
+            <div class="flex">
+                <a class="text-base text-font-light font-medium mr-2 no-underline" href="/">Home</a>
+                <i class="text-base text-font-light font-medium mr-2 no-underline fa fa-angle-double-right"></i>
+                <p class="text-base text-font-light font-medium mr-2 no-underline">Change Password</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="grid bg-card-bg rounded-md p-4">
+            <div class="lg:col-span-12 md:col-span-6 sm:col-span-6">
+                <h4 class="text-4xl font-medium">Update Your Password</h4>
+                <form method="POST" class="space-y-4">
+                    {% csrf_token %}
+                    <div class="mt-2 mb-2">
+                        <label for="old_password" class="font-base">Old Password <span>*</span></label>
+                        <input type="password" name="old_password" id="old_password" class="form-input w-full" required />
+                        {% if form.old_password.errors %}
+                        <div class="text-red-600 text-sm">{{ form.old_password.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mt-2 mb-2">
+                        <label for="new_password1" class="font-base">New Password <span>*</span></label>
+                        <input type="password" name="new_password1" id="new_password1" class="form-input w-full" required />
+                        {% if form.new_password1.errors %}
+                        <div class="text-red-600 text-sm">{{ form.new_password1.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mt-2 mb-2">
+                        <label for="new_password2" class="font-base">Confirm New Password <span>*</span></label>
+                        <input type="password" name="new_password2" id="new_password2" class="form-input w-full" required />
+                        {% if form.new_password2.errors %}
+                        <div class="text-red-600 text-sm">{{ form.new_password2.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn-primary">Update Password</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if messages %}
+<div class="fixed top-4 right-4 z-50" id="popup-message">
+    {% for message in messages %}
+        <div class="bg-green-500 text-white p-4 rounded shadow-lg">
+            {{ message }}
+        </div>
+    {% endfor %}
+</div>
+<script>
+    setTimeout(function() {
+        var messageElement = document.getElementById('popup-message');
+        if (messageElement) {
+            messageElement.style.display = 'none';
+        }
+    }, 5000);
+</script>
+{% endif %}
+{% endblock %}

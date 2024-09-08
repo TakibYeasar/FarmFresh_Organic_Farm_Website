@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto my-8 p-4">
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <div class="flex flex-col items-center justify-center">
+            <!-- Profile Picture -->
+            <div class="w-32 h-32 mb-4">
+                <img class="rounded-full object-cover" src="{% if userprofile.picture %}{{ userprofile.picture.url }}{% else %}{% static 'images/user.jpg' %}{% endif %}" alt="Profile Picture"/>
+            </div>
+            <!-- User Info -->
+            <h1 class="text-3xl font-semibold text-gray-800">{{ userprofile.user.first_name }} {{ userprofile.user.last_name }}</h1>
+            <p class="text-gray-600">{{ userprofile.status }}</p>
+            <div class="mt-4">
+                <p class="text-gray-700 font-medium">About:</p>
+                <p class="text-gray-500">{{ userprofile.about_user }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Personal Details Section -->
+    <div class="mt-8 bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Personal Details</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <p class="text-gray-600 font-medium">Address:</p>
+                <p class="text-gray-500">{{ userprofile.address }}</p>
+            </div>
+            <div>
+                <p class="text-gray-600 font-medium">Company:</p>
+                <p class="text-gray-500">{{ userprofile.company }}</p>
+            </div>
+            <div>
+                <p class="text-gray-600 font-medium">Website:</p>
+                <p class="text-gray-500"><a href="{{ userprofile.website }}" class="text-blue-500">{{ userprofile.website }}</a></p>
+            </div>
+            <div>
+                <p class="text-gray-600 font-medium">City:</p>
+                <p class="text-gray-500">{{ userprofile.city }}</p>
+            </div>
+            <div>
+                <p class="text-gray-600 font-medium">State:</p>
+                <p class="text-gray-500">{{ userprofile.state }}</p>
+            </div>
+            <div>
+                <p class="text-gray-600 font-medium">Country:</p>
+                <p class="text-gray-500">{{ userprofile.country }}</p>
+            </div>
+            <div>
+                <p class="text-gray-600 font-medium">Phone:</p>
+                <p class="text-gray-500">{{ userprofile.phone }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Button -->
+    <div class="mt-8 text-center">
+        <a href="{% url 'edit_profile' %}" class="btn-primary">Edit Profile</a>
+    </div>
+</div>
+
+{% endblock %}

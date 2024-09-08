@@ -5,14 +5,14 @@
 
 <div class="">
     <div class="relative">
-        <Image src="{% static 'assets/images/carousel-2.jpg' %}" class='h-[40vh]' alt='' />
+        <img src="{% static 'assets/images/carousel-2.jpg' %}" class="h-[40vh]" alt=""/>
 
         <div class="container">
             <div class="absolute t-[10vh]">
                 <h3 class="text-font-light">Authenticate</h3>
                 <div class="flex">
-                    <a class='text-base text-font-light font-medium mr-2 no-underline' href="">Home</a>
-                    <FaAngleDoubleRight class='text-base text-font-light font-medium mr-2 no-underline' />
+                    <a class="text-base text-font-light font-medium mr-2 no-underline" href="">Home</a>
+                    <i class="text-base text-font-light font-medium mr-2 no-underline fa fa-angle-double-right"></i>
                     <p class="text-base text-font-light font-medium mr-2 no-underline">Authenticate</p>
                 </div>
             </div>
@@ -20,40 +20,69 @@
     </div>
 
     <div class="container">
-        <div class="flex">
-            <div class="bg-card-bg rounded-md p-4">
-                <div class="grid">
-                    <div class="lg:col-span-12 md:col-span-6 sm:col-span-6">
-                        <h4 class="text-4xl font-medium">Sign in</h4>
-                        <p class="font-base text-primary-color">Hello, Welcome to your account.</p>
-                        <form class="" role="form">
-                            <div class="mt-2 mb-2">
-                                <label class="font-base mt-2 mb-2" htmlFor="exampleInputEmail1">Username <span>*</span></label>
-                                <input type="text" class="form-control unicase-form-control text-input" id="exampleInputEmail1" />
-                            </div>
-                            <div class="mt-2 mb-2">
-                                <label class="font-base mt-2 mb-2" htmlFor="exampleInputEmail1">Email Address <span>*</span></label>
-                                <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" />
-                            </div>
-                            <div class="mt-2 mb-2">
-                                <label class="font-base mt-2 mb-2" htmlFor="exampleInputPassword1">Password <span>*</span></label>
-                                <input type="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1" />
-                            </div>
-                            <div class="mt-6 mb-6 justify-evenly outer-xs">
-                                <label><input type="radio" />Remember me! </label>
-                                <a href="#" class="no-underline font-base text-font-color">Forgot your Password?</a>
-                            </div>
-                            <button type="submit" class="btn-primary" >Login</button>
-                        </form>
-                        
-                        <div class="">
-                            <a href="#" class="btn-secondary text-primary-color"><FaGoogle class='icon' /> Sign In with Google</a>
-                        </div>
+        <div class="flex justify-center">
+            <div class="bg-card-bg rounded-md p-4 w-full md:w-2/3 lg:w-1/2">
+                <h4 class="text-4xl font-medium">Sign in</h4>
+                <p class="font-base text-primary-color">Hello, Welcome to your account.</p>
+                <form method="POST" class="space-y-4">
+                    {% csrf_token %}
+                    <div class="mt-2 mb-2">
+                        <label for="username" class="font-base mt-2 mb-2">Username <span>*</span></label>
+                        <input type="text" name="username" id="username" class="form-control unicase-form-control text-input w-full" required />
+                        {% if form.username.errors %}
+                        <div class="text-red-600 text-sm">{{ form.username.errors }}</div>
+                        {% endif %}
                     </div>
+                    <div class="mt-2 mb-2">
+                        <label for="email" class="font-base mt-2 mb-2">Email Address <span>*</span></label>
+                        <input type="email" name="email" id="email" class="form-control unicase-form-control text-input w-full" required />
+                        {% if form.email.errors %}
+                        <div class="text-red-600 text-sm">{{ form.email.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mt-2 mb-2">
+                        <label for="password" class="font-base mt-2 mb-2">Password <span>*</span></label>
+                        <input type="password" name="password" id="password" class="form-control unicase-form-control text-input w-full" required />
+                        {% if form.password.errors %}
+                        <div class="text-red-600 text-sm">{{ form.password.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mt-6 mb-6 flex justify-between items-center">
+                        <label><input type="checkbox" name="remember_me" /> Remember me!</label>
+                        <a href="#" class="no-underline font-base text-font-color">Forgot your Password?</a>
+                    </div>
+                    <button type="submit" class="btn-primary">Login</button>
+                </form>
+                
+                <div class="mt-4">
+                    {% comment %} <a href="{% url 'social:begin' 'google' %}" class="btn-secondary text-primary-color flex items-center justify-center">
+                        <i class="fa fa-google mr-2"></i> Sign In with Google
+                    </a> {% endcomment %}
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+{% if messages %}
+<div class="fixed top-4 right-4 z-50" id="popup-message">
+    {% for message in messages %}
+        <div class="bg-green-500 text-white p-4 rounded shadow-lg">
+            {{ message }}
+        </div>
+    {% endfor %}
+</div>
+{% block scripts %}
+<script>
+    // Automatically hide the message after 5 seconds
+    setTimeout(function() {
+        var messageElement = document.getElementById('popup-message');
+        if (messageElement) {
+            messageElement.style.display = 'none';
+        }
+    }, 5000);
+</script>{% endblock %}
+
+{% endif %}
 
 {% endblock %}

@@ -3,6 +3,7 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from .models import *
 from .serializers import *
 from .utils import send_email
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from rest_framework import permissions, status
 from rest_framework.response import Response
@@ -17,20 +18,22 @@ class UserRegisterView(APIView):
     
     def get(self, request):
         serializer = UserRegesterationSerializer()
-        return render(request, 'authentication/registration.html', {'serializer': serializer})
+        return render(request, 'authentication/registration.html', {'form': serializer})
     
     def post(self, request):
         serializer = UserRegesterationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            email = serializer.validated_data["email"]
-            data = {
-                "detail": "We sent an email to you for verification.", "email": email}
-            user_obj = CustomUser.objects.get(email=email)
-            token = self.get_tokens_for_user(user_obj)
-            send_email("Activate your account!", user_obj.email, {
-                "user": user_obj}, {"token": token})
-            return Response(data, status.HTTP_201_CREATED)
+            # email = serializer.validated_data["email"]
+            # data = {
+            #     "detail": "We sent an email to you for verification.", "email": email}
+            # user_obj = CustomUser.objects.get(email=email)
+            # token = self.get_tokens_for_user(user_obj)
+            # send_email("Activate your account!", user_obj.email, {
+            #     "user": user_obj}, {"token": token})
+            # return Response(data, status.HTTP_201_CREATED)
+            messages.success(request, "User registered successfully!")
+            return redirect('home')
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def get_tokens_for_user(self, user):
@@ -81,12 +84,19 @@ class LoginUserView(APIView):
     
     def get(self, request):
         serializer = LoginSerializer()
-        return render(request, 'authentication/login.html', {'serializer': serializer})
+        return render(request, 'authentication/login.html', {'form': serializer})
 
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        if serializer.is_valid():
+            messages.success(request, "User Login successfully!")
+            return redirect('home')
+        else:
+            # Add error messages to the form and re-render the page
+            for field, errors in serializer.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
+            return redirect('login')
 
 
 class LogOutView(APIView):

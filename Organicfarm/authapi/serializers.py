@@ -11,8 +11,8 @@ class UserRegesterationSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = [
-            "username",
             "email",
+            "username",
             "password",
             "confirm_password"
         ]
@@ -73,20 +73,22 @@ class LoginSerializer(serializers.ModelSerializer):
         }
 
     def validate(self, attrs):
-        user = authenticate(username=attrs.get('username'), email=attrs.get(
-            'email'), password=attrs.get('password'))
+        username = attrs.get('username')
+        email = attrs.get('email')
+        password = attrs.get('password')
+
+        user = authenticate(username=username, email=email, password=password)
 
         if not user:
-            raise exceptions.AuthenticationFailed('there is no such user')
+            raise exceptions.AuthenticationFailed('Invalid credentials.')
 
         if not user.is_active:
-            raise exceptions.AuthenticationFailed('Your account is blocked')
+            raise exceptions.AuthenticationFailed('Your account is blocked.')
 
         if not user.is_verified:
-            raise exceptions.AuthenticationFailed(
-                'Your account is not verfied yet')
+            raise exceptions.AuthenticationFailed('Your account is not verified.')
 
-        attrs["user"] = user
+        attrs['user'] = user
         return attrs
 
 

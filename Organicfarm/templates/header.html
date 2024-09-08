@@ -10,19 +10,22 @@
       </div>
       <div class="col-span-6 flex items-center justify-center">
         <a href="/" class="">
-          <h1 class="m-0 text-4xl font-semibold text-primary-color"><span class="text-secondary-color">Farm</span>Fresh
-          </h1>
+          <h1 class="m-0 text-4xl font-semibold text-primary-color"><span class="text-secondary-color">Farm</span>Fresh</h1>
         </a>
       </div>
       <div class="col-span-3 flex items-center justify-end">
-        <a class="text-xl text-font-light p-2 bg-primary-color rounded-full mx-2 hover:text-font-color" href="{{ item.twitter_link }}"><i
-            class="fa-brands fa-twitter"></i></a>
-        <a class="text-xl text-font-light p-2 bg-primary-color rounded-full mx-2 hover:text-font-color" href="{{ item.facebook_link }}"><i
-            class="fa-brands fa-facebook"></i></a>
-        <a class="text-xl text-font-light p-2 bg-primary-color rounded-full mx-2 hover:text-font-color" href="{{ item.linkedin_link }}"><i
-            class="fa-brands fa-linkedin"></i></a>
-        <a class="text-xl text-font-light p-2 bg-primary-color rounded-full mx-2 hover:text-font-color" href="{{ item.instagram_link }}"><i
-            class="fa-brands fa-instagram"></i></a>
+        <a class="text-xl text-font-light p-2 bg-primary-color rounded-full mx-2 hover:text-font-color" href="{{ item.twitter_link }}">
+          <i class="fa-brands fa-twitter"></i>
+        </a>
+        <a class="text-xl text-font-light p-2 bg-primary-color rounded-full mx-2 hover:text-font-color" href="{{ item.facebook_link }}">
+          <i class="fa-brands fa-facebook"></i>
+        </a>
+        <a class="text-xl text-font-light p-2 bg-primary-color rounded-full mx-2 hover:text-font-color" href="{{ item.linkedin_link }}">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+        <a class="text-xl text-font-light p-2 bg-primary-color rounded-full mx-2 hover:text-font-color" href="{{ item.instagram_link }}">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
       </div>
     </div>
   </div>
@@ -30,7 +33,6 @@
 {% else %}
   <p>No contact info available.</p>
 {% endif %}
-
 
 <nav class="sticky top-0 bg-primary-color z-50">
   <div class="container">
@@ -41,22 +43,70 @@
         <div class="absolute hidden p-5 bg-bg-color nav-dropdown z-50">
           <a href="/about" class="block nav-link text-font-color">About</a>
           <a href="{% url 'all-product-list' %}?show_all=True" class="block nav-link text-font-color">Product</a>
-          <a href="/api/shop/my-cart" class="block nav-link text-font-color">Cart</a>
+          {% if user.is_authenticated %}
+            <a href="/api/shop/my-cart" class="block nav-link text-font-color">Cart</a>
+          {% endif %}
           <a href="{% url 'all-article-list' %}?show_all=True" class="block nav-link text-font-color">Blog</a>
         </div>
       </div>
       <a href="/contact" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Contact</a>
-      <a href="/api/auth/register-user" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Sign-Up</a>
-      <a href="/api/auth/login-user" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Sign-In</a>
-      <a href="/api/auth/logout" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Logout</a>
+      {% if user.is_authenticated %}
+        <a href="/api/auth/logout" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Logout</a>
+      {% else %}
+        <!-- Trigger the Modals -->
+        <a onclick="openModal('signUpModal')" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Sign-Up</a>
+        <a onclick="openModal('signInModal')" class="nav-link uppercase font-semibold p-6 hover:bg-secondary-color">Sign-In</a>
+      {% endif %}
     </div>
   </div>
 </nav>
 
+<!-- Modals for Sign-Up and Sign-In -->
+<div id="signUpModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50 hidden">
+  <div class="bg-white rounded-lg p-8 max-w-md w-full relative">
+    <span class="close-modal absolute top-4 right-4 text-xl cursor-pointer" onclick="closeModal('signUpModal')">&times;</span>
+    <iframe src="/api/auth/register-user" class="w-full h-[500px]"></iframe>
+  </div>
+</div>
+
+<div id="signInModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50 hidden">
+  <div class="bg-white rounded-lg p-8 max-w-md w-full relative">
+    <span class="close-modal absolute top-4 right-4 text-xl cursor-pointer" onclick="closeModal('signInModal')">&times;</span>
+    <iframe src="/api/auth/login-user" class="w-full h-[500px]"></iframe>
+  </div>
+</div>
+
 <style>
-  .nav-item:hover .nav-dropdown {
-    display: block;
-    z-index: 50;
+  .modal { display: none; } /* Hidden by default */
+  .input-field { width: 100%; padding: 10px; margin-bottom: 10px; }
+  .btn-primary { background-color: #4CAF50; color: white; padding: 10px; border: none; cursor: pointer; }
+  .btn-primary:hover { background-color: #45a049; }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+  function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    } else {
+      console.error(`Modal with ID '${modalId}' not found`);
+    }
   }
 
-</style>
+  function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    } else {
+      console.error(`Modal with ID '${modalId}' not found`);
+    }
+  }
+
+  // You can now safely assign the openModal and closeModal functions to button click handlers
+  window.openModal = openModal;
+  window.closeModal = closeModal;
+});
+</script>
